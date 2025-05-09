@@ -3,5 +3,10 @@ plugins {
 }
 
 rootProject.name = "spokk"
+
+includeBuild("gradle/plugins")
+
 include("spokk-core")
 include("spokk-specs")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

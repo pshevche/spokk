@@ -1,0 +1,11 @@
+complexity:
+  LongParameterList:
+    active: false
+
+style:
+  MaxLineLength:
+    active: false
+
+formatting:
+  MaximumLineLength:
+    active: false

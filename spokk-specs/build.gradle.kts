@@ -1,18 +1,7 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    `java-library`
-}
-
-repositories {
-    mavenCentral()
+    id("spokk.kotlin-library")
 }
 
 dependencies {
-    testImplementation(project(":spokk-core"))
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+    testImplementation(projects.spokkCore)
 }
