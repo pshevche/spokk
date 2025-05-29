@@ -1,8 +1,7 @@
 plugins {
     `maven-publish`
     alias(libs.plugins.kotlin.kapt)
-    id("spokk.compiler-plugin-component")
-    id("spokk.kotlin-library")
+    id("spokk.compiler-plugin-producer")
 }
 
 dependencies {

@@ -1,7 +1,7 @@
 plugins {
     `java-gradle-plugin`
     alias(libs.plugins.plugin.publish)
-    id("spokk.compiler-plugin-component")
+    id("spokk.compiler-plugin-config")
     id("spokk.kotlin-library")
 }
 
