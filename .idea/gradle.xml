@@ -21,7 +21,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/gradle/plugins" />
-            <option value="$PROJECT_DIR$/spokk-core" />
+            <option value="$PROJECT_DIR$/spokk-compiler-plugin" />
+            <option value="$PROJECT_DIR$/spokk-gradle-plugin" />
             <option value="$PROJECT_DIR$/spokk-specs" />
           </set>
         </option>
