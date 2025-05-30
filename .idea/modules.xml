@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-specs/spokk.spokk-specs.test.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-specs/spokk.spokk-specs.test.iml" />
     </modules>
   </component>
 </project>

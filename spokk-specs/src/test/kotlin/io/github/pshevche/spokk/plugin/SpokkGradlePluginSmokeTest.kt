@@ -1,12 +1,11 @@
 package io.github.pshevche.spokk.plugin
 
 import kotlin.test.Test
-import kotlin.test.assertTrue
 
-class SpokkGradlePluginSmokeTest {
+class SpokkGradlePluginSmokeTest : BaseGradlePluginTest() {
 
     @Test
     fun `smoke test`() {
-        assertTrue(true)
+        run("tasks")
     }
 }
