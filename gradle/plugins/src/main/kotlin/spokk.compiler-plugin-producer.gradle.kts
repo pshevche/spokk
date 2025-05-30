@@ -7,7 +7,7 @@ configurations.create("compilerPlugin") {
     isCanBeResolved = false
     isCanBeConsumed = true
     attributes {
-        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, "spokk-compiler-plugin"))
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, "compiler-plugin"))
     }
 }
 

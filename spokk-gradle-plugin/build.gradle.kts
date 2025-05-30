@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.plugin.publish)
     id("spokk.compiler-plugin-config")
     id("spokk.kotlin-library")
+    id("spokk.plugin-under-test-producer")
 }
 
 dependencies {
