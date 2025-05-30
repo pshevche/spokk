@@ -1,5 +1,3 @@
-import gradle.kotlin.dsl.accessors._cff12a2f85a9cfdf5a2f9101bbe0d2e0.ext
-
 plugins {
     `maven-publish`
 }
@@ -22,7 +20,7 @@ publishing {
     }
 }
 
-ext.set("repoForTest", repoForTest.get().asFile.absolutePath)
+extra["repoForTest"] = repoForTest.get().asFile.absolutePath
 
 artifacts {
     add("pluginUnderTest", repoForTest)

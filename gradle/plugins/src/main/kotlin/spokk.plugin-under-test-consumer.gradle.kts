@@ -18,5 +18,5 @@ dependencies {
 tasks.withType<Test>().configureEach {
     dependsOn(gradlePluginProject.tasks.named("publishAllPublicationsToRepoForTestRepository"))
     inputs.files(pluginUnderTest)
-    systemProperty("spokk.pluginRepo", gradlePluginProject.ext.get("repoForTest").toString())
+    systemProperty("spokk.pluginRepo", gradlePluginProject.extra["repoForTest"].toString())
 }

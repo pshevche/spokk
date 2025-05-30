@@ -22,5 +22,4 @@ open class BaseGradlePluginTest {
             .forwardOutput()
             .build()
     }
-
 }
