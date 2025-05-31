@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.plugin
+package io.github.pshevche.spokk.compilation
 
 import kotlin.test.Test
 

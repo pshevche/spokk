@@ -13,6 +13,6 @@ dependencies {
 gradlePlugin {
     val spokk by plugins.creating {
         id = "io.github.pshevche.spokk"
-        implementationClass = "io.github.pshevche.spokk.plugin.SpokkGradlePlugin"
+        implementationClass = "io.github.pshevche.spokk.compilation.SpokkGradlePlugin"
     }
 }

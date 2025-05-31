@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.plugin
+package io.github.pshevche.spokk.compilation
 
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation

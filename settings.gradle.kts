@@ -7,6 +7,7 @@ rootProject.name = "spokk"
 includeBuild("gradle/plugins")
 
 include("spokk-compiler-plugin")
+include("spokk-core")
 include("spokk-gradle-plugin")
 include("spokk-specs")
 

@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.plugin
+package io.github.pshevche.spokk.compilation
 
 import io.github.pshevche.spokk.fixtures.Workspace
 import org.gradle.testkit.runner.BuildResult

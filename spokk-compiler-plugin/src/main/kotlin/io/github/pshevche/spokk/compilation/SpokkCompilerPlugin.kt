@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.plugin
+package io.github.pshevche.spokk.compilation
 
 import com.google.auto.service.AutoService
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
