@@ -15,5 +15,4 @@ abstract class SpokkNode<I : NodeInfo>(
     source: TestSource,
     val nodeInfo: I,
 ) :
-    AbstractTestDescriptor(uniqueId, displayName, source), Node<SpokkExecutionContext> {
-}
+    AbstractTestDescriptor(uniqueId, displayName, source), Node<SpokkExecutionContext>
