@@ -7,7 +7,7 @@ val compilerPluginArtifactId = "spokk-compiler-plugin"
 version = "0.1"
 
 buildConfig {
-    packageName("io.github.pshevche.spokk.plugin")
+    packageName("io.github.pshevche.spokk.compilation")
     className("SpokkCompilerPluginConfig")
 
     buildConfigField("String", "SPOKK_COMPILER_PLUGIN_ID", "\"${group}:${compilerPluginArtifactId}\"")

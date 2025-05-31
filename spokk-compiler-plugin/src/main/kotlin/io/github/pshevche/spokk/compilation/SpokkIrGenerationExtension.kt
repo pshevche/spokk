@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.plugin
+package io.github.pshevche.spokk.compilation
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext

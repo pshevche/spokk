@@ -8,6 +8,9 @@
       <module name="spokk.spokk-compiler-plugin" options="-proc:none" />
       <module name="spokk.spokk-compiler-plugin.main" options="-proc:none" />
       <module name="spokk.spokk-compiler-plugin.test" options="-proc:none" />
+      <module name="spokk.spokk-core" options="-proc:none" />
+      <module name="spokk.spokk-core.main" options="-proc:none" />
+      <module name="spokk.spokk-core.test" options="-proc:none" />
     </option>
   </component>
 </project>
