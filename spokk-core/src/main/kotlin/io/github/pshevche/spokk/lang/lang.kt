@@ -1,4 +1,4 @@
-@file:Suppress("unused", "UNUSED_PARAMETER", "ClassName")
+@file:Suppress("unused", "ClassName", "FunctionNaming", "Filename")
 
 package io.github.pshevche.spokk.lang
 

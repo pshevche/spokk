@@ -2,10 +2,14 @@ complexity:
   LongParameterList:
     active: false
 
-style:
-  MaxLineLength:
+exceptions:
+  TooGenericExceptionCaught:
     active: false
 
 formatting:
   MaximumLineLength:
+    active: false
+
+style:
+  MaxLineLength:
     active: false

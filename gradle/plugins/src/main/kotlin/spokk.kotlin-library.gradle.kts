@@ -23,3 +23,7 @@ checkstyle {
     configFile = rootProject.layout.projectDirectory.file("gradle/config/checkstyle.xml").asFile
     maxWarnings = 3
 }
+
+detekt {
+    config.from(rootProject.layout.projectDirectory.file("gradle/config/detekt.yml"))
+}

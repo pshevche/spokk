@@ -1,6 +1,7 @@
 package io.github.pshevche.spokk.runtime.engine.node
 
 import io.github.pshevche.spokk.runtime.engine.SpokkExecutionContext
+import io.github.pshevche.spokk.runtime.engine.execution.ErrorInfoCollector
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.UniqueId
 import org.junit.platform.engine.support.descriptor.MethodSource
@@ -20,6 +21,9 @@ class FeatureNode(
     override fun getType() = TestDescriptor.Type.TEST
 
     override fun prepare(context: SpokkExecutionContext): SpokkExecutionContext {
+        val errorInfoCollector = ErrorInfoCollector()
+        context.getRunner().createSpecInstance(context.getSpec(), errorInfoCollector)
+        errorInfoCollector.assertEmpty()
         return context.withCurrentFeature(nodeInfo)
     }
 
@@ -27,6 +31,9 @@ class FeatureNode(
         context: SpokkExecutionContext,
         dynamicTestExecutor: Node.DynamicTestExecutor,
     ): SpokkExecutionContext {
-        return super.execute(context, dynamicTestExecutor)
+        val errorInfoCollector = ErrorInfoCollector()
+        context.getRunner().runFeatureMethod(context.getCurrentFeature(), errorInfoCollector)
+        errorInfoCollector.assertEmpty()
+        return context
     }
 }
