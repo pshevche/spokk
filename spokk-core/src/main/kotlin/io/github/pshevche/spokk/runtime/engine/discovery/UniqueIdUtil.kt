@@ -3,7 +3,7 @@ package io.github.pshevche.spokk.runtime.engine.discovery
 import io.github.pshevche.spokk.runtime.engine.node.FeatureInfo
 import org.junit.platform.engine.UniqueId
 
-object UniqueIdUtil {
+internal object UniqueIdUtil {
 
     private const val SPEC_SEGMENT = "spec"
     private const val FEATURE_SEGMENT = "feature"

@@ -9,7 +9,7 @@ import org.junit.platform.engine.support.descriptor.ClassSource
 /**
  * Represents the specification class in the test descriptor hierarchy
  */
-class SpecNode(
+internal class SpecNode(
     uniqueId: UniqueId,
     displayName: String,
     source: ClassSource,

@@ -19,7 +19,7 @@ import java.util.Optional
 /**
  * Resolve class- and uniqueId-based selectors.
  */
-class ClassSelectorResolver(private val classNameFilter: (String) -> Boolean) : SelectorResolver {
+internal class ClassSelectorResolver(private val classNameFilter: (String) -> Boolean) : SelectorResolver {
 
     /**
      * The requested class is recognized by the "spokk" engine if it has the `SpecMetadata` annotation.

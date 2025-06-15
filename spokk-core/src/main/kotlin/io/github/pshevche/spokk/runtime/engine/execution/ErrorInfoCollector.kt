@@ -5,7 +5,7 @@ import io.github.pshevche.spokk.runtime.SpokkMultipleFailuresError
 /**
  * Collects test errors during test execution.
  */
-class ErrorInfoCollector {
+internal class ErrorInfoCollector {
     private val errorInfos: MutableList<Throwable> = mutableListOf()
 
     fun addErrorInfo(errorInfo: Throwable) {

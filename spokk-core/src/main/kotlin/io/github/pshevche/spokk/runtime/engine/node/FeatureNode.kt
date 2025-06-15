@@ -10,7 +10,7 @@ import org.junit.platform.engine.support.hierarchical.Node
 /**
  * Represents a feature method in the test hierarchy
  */
-class FeatureNode(
+internal class FeatureNode(
     uniqueId: UniqueId,
     displayName: String,
     source: MethodSource,

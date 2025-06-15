@@ -6,7 +6,7 @@ import io.github.pshevche.spokk.runtime.engine.node.SpecInfo
 /**
  * Executes a `SpecNode` in the test hierarchy.
  */
-class SpecNodeRunner {
+internal class SpecNodeRunner {
 
     private var currentSpecInstance: Any? = null
 

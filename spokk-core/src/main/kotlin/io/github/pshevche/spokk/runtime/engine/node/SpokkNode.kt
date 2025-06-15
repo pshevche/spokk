@@ -9,7 +9,7 @@ import org.junit.platform.engine.support.hierarchical.Node
 /**
  * Base test descriptor for spokk test nodes.
  */
-abstract class SpokkNode<I : NodeInfo>(
+internal abstract class SpokkNode<I : NodeInfo>(
     uniqueId: UniqueId,
     displayName: String,
     source: TestSource,
