@@ -5,7 +5,7 @@ import io.github.pshevche.spokk.lang.internal.FeatureMetadata
 /**
  * Represents the specification class in the test hierarchy
  */
-class SpecInfo(val reflection: Class<*>) : NodeInfo {
+internal class SpecInfo(val reflection: Class<*>) : NodeInfo {
     val features = collectFeaturesInfo(reflection)
 
     override fun getName(): String = reflection.name

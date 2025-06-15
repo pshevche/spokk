@@ -8,4 +8,4 @@ import org.junit.platform.engine.support.hierarchical.Node
 /**
  * Root test descriptor.
  */
-class SpokkEngineDescriptor(uniqueId: UniqueId) : EngineDescriptor(uniqueId, "Spokk"), Node<SpokkExecutionContext>
+internal class SpokkEngineDescriptor(uniqueId: UniqueId) : EngineDescriptor(uniqueId, "Spokk"), Node<SpokkExecutionContext>

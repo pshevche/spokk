@@ -13,7 +13,7 @@ import org.junit.platform.engine.support.discovery.SelectorResolver.Resolution
 /**
  * Resolve method- and uniqueId-based selectors.
  */
-class MethodSelectorResolver : SelectorResolver {
+internal class MethodSelectorResolver : SelectorResolver {
 
     /**
      * Method is a spokk feature if the declaring class is a spokk spec, the method is annotated with `FeatureMetadata`

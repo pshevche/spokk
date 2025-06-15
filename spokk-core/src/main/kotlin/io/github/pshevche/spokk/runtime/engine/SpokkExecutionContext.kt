@@ -9,18 +9,30 @@ import org.junit.platform.engine.support.hierarchical.EngineExecutionContext
 /**
  * Contains components required for executing various test nodes.
  */
-data class SpokkExecutionContext(
+class SpokkExecutionContext internal constructor(
     private val runner: SpecNodeRunner? = null,
     private val spec: SpecInfo? = null,
     private val errorInfoCollector: ErrorInfoCollector? = null,
     private val currentFeature: FeatureInfo? = null,
 ) : EngineExecutionContext {
 
-    fun withRunner(runner: SpecNodeRunner) = copy(runner = runner)
-    fun withSpec(spec: SpecInfo) = copy(spec = spec)
-    fun withCurrentFeature(featureInfo: FeatureInfo) = copy(currentFeature = featureInfo)
+    internal fun withRunner(runner: SpecNodeRunner) = copy(runner = runner)
+    internal fun withSpec(spec: SpecInfo) = copy(spec = spec)
+    internal fun withCurrentFeature(featureInfo: FeatureInfo) = copy(currentFeature = featureInfo)
 
-    fun getRunner() = requireNotNull(runner) { "node runner must be initialized" }
-    fun getSpec() = requireNotNull(spec) { "spec to execute must be initialized" }
-    fun getCurrentFeature() = requireNotNull(currentFeature) { "feature to execute must be initialized" }
+    internal fun getRunner() = requireNotNull(runner) { "node runner must be initialized" }
+    internal fun getSpec() = requireNotNull(spec) { "spec to execute must be initialized" }
+    internal fun getCurrentFeature() = requireNotNull(currentFeature) { "feature to execute must be initialized" }
+
+    private fun copy(
+        runner: SpecNodeRunner? = this.runner,
+        spec: SpecInfo? = this.spec,
+        errorInfoCollector: ErrorInfoCollector? = this.errorInfoCollector,
+        currentFeature: FeatureInfo? = this.currentFeature,
+    ) = SpokkExecutionContext(
+        runner = runner,
+        spec = spec,
+        errorInfoCollector = errorInfoCollector,
+        currentFeature = currentFeature
+    )
 }
