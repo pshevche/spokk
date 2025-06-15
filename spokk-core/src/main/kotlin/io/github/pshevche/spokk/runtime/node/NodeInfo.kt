@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.runtime.engine.node
+package io.github.pshevche.spokk.runtime.node
 
 /**
  * Additional information about the source that is represented by the test descriptor.

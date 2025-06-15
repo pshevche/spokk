@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.runtime.engine.execution
+package io.github.pshevche.spokk.runtime.execution
 
 import io.github.pshevche.spokk.runtime.SpokkMultipleFailuresError
 

@@ -1,11 +1,11 @@
-package io.github.pshevche.spokk.runtime.engine.discovery
+package io.github.pshevche.spokk.runtime.discovery
 
 import io.github.pshevche.spokk.runtime.SpokkException
-import io.github.pshevche.spokk.runtime.engine.node.FeatureInfo
-import io.github.pshevche.spokk.runtime.engine.node.FeatureNode
-import io.github.pshevche.spokk.runtime.engine.node.SpecInfo
-import io.github.pshevche.spokk.runtime.engine.node.SpecNode
-import io.github.pshevche.spokk.runtime.engine.util.SpecUtil.isRunnableSpec
+import io.github.pshevche.spokk.runtime.node.FeatureInfo
+import io.github.pshevche.spokk.runtime.node.FeatureNode
+import io.github.pshevche.spokk.runtime.node.SpecInfo
+import io.github.pshevche.spokk.runtime.node.SpecNode
+import io.github.pshevche.spokk.runtime.util.SpecUtil.isRunnableSpec
 import org.junit.platform.commons.support.ReflectionSupport
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.UniqueId
