@@ -20,7 +20,7 @@ data class SpokkExecutionContext(
     fun withSpec(spec: SpecInfo) = copy(spec = spec)
     fun withCurrentFeature(featureInfo: FeatureInfo) = copy(currentFeature = featureInfo)
 
-    fun getRunner() = runner!!
-    fun getSpec() = spec!!
-    fun getCurrentFeature() = currentFeature!!
+    fun getRunner() = requireNotNull(runner) { "node runner must be initialized" }
+    fun getSpec() = requireNotNull(spec) { "spec to execute must be initialized" }
+    fun getCurrentFeature() = requireNotNull(currentFeature) { "feature to execute must be initialized" }
 }
