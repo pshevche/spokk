@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.runtime.engine.util
+package io.github.pshevche.spokk.runtime.util
 
 import io.github.pshevche.spokk.lang.internal.SpecMetadata
 import java.lang.reflect.Modifier

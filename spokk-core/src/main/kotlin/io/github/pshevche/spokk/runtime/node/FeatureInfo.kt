@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.runtime.engine.node
+package io.github.pshevche.spokk.runtime.node
 
 import java.lang.reflect.Method
 

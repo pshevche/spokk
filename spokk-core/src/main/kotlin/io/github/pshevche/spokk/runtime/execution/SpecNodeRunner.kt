@@ -1,7 +1,6 @@
-package io.github.pshevche.spokk.runtime.engine.execution
+package io.github.pshevche.spokk.runtime.execution
 
-import io.github.pshevche.spokk.runtime.engine.node.FeatureInfo
-import io.github.pshevche.spokk.runtime.engine.node.SpecInfo
+import io.github.pshevche.spokk.runtime.node.SpecInfo
 
 /**
  * Executes a `SpecNode` in the test hierarchy.
@@ -18,7 +17,10 @@ internal class SpecNodeRunner {
         }
     }
 
-    fun runFeatureMethod(currentFeature: FeatureInfo, errorInfoCollector: ErrorInfoCollector) {
+    fun runFeatureMethod(
+        currentFeature: io.github.pshevche.spokk.runtime.node.FeatureInfo,
+        errorInfoCollector: ErrorInfoCollector,
+    ) {
         try {
             currentFeature.reflection.invoke(currentSpecInstance!!)
         } catch (e: Exception) {

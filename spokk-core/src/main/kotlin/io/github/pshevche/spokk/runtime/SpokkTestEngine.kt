@@ -1,10 +1,10 @@
-package io.github.pshevche.spokk.runtime.engine
+package io.github.pshevche.spokk.runtime
 
 import com.google.auto.service.AutoService
-import io.github.pshevche.spokk.runtime.engine.discovery.ClassSelectorResolver
-import io.github.pshevche.spokk.runtime.engine.discovery.MethodSelectorResolver
-import io.github.pshevche.spokk.runtime.engine.node.SpokkEngineDescriptor
-import io.github.pshevche.spokk.runtime.engine.util.SpecUtil.isRunnableSpec
+import io.github.pshevche.spokk.runtime.discovery.ClassSelectorResolver
+import io.github.pshevche.spokk.runtime.discovery.MethodSelectorResolver
+import io.github.pshevche.spokk.runtime.node.SpokkEngineDescriptor
+import io.github.pshevche.spokk.runtime.util.SpecUtil.isRunnableSpec
 import org.junit.platform.engine.EngineDiscoveryRequest
 import org.junit.platform.engine.ExecutionRequest
 import org.junit.platform.engine.TestDescriptor

@@ -1,14 +1,14 @@
-package io.github.pshevche.spokk.runtime.engine
+package io.github.pshevche.spokk.runtime
 
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedAbstractParentSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedFromAbstractChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenParentSpec
-import io.github.pshevche.spokk.lang.then
-import io.github.pshevche.spokk.lang.`when`
 import io.github.pshevche.spokk.lang.internal.FeatureMetadata
 import io.github.pshevche.spokk.lang.internal.SpecMetadata
-import io.github.pshevche.spokk.runtime.engine.EngineTestKitUtils.execute
+import io.github.pshevche.spokk.lang.then
+import io.github.pshevche.spokk.lang.`when`
+import io.github.pshevche.spokk.runtime.EngineTestKitUtils.execute
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 

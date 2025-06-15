@@ -1,9 +1,9 @@
-package io.github.pshevche.spokk.runtime.engine
+package io.github.pshevche.spokk.runtime
 
-import io.github.pshevche.spokk.runtime.engine.execution.ErrorInfoCollector
-import io.github.pshevche.spokk.runtime.engine.execution.SpecNodeRunner
-import io.github.pshevche.spokk.runtime.engine.node.FeatureInfo
-import io.github.pshevche.spokk.runtime.engine.node.SpecInfo
+import io.github.pshevche.spokk.runtime.execution.ErrorInfoCollector
+import io.github.pshevche.spokk.runtime.execution.SpecNodeRunner
+import io.github.pshevche.spokk.runtime.node.FeatureInfo
+import io.github.pshevche.spokk.runtime.node.SpecInfo
 import org.junit.platform.engine.support.hierarchical.EngineExecutionContext
 
 /**

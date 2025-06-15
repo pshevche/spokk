@@ -1,7 +1,7 @@
-package io.github.pshevche.spokk.runtime.engine.discovery
+package io.github.pshevche.spokk.runtime.discovery
 
-import io.github.pshevche.spokk.runtime.engine.node.FeatureNode
-import io.github.pshevche.spokk.runtime.engine.node.SpecNode
+import io.github.pshevche.spokk.runtime.node.FeatureNode
+import io.github.pshevche.spokk.runtime.node.SpecNode
 import org.junit.platform.engine.DiscoverySelector
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.discovery.DiscoverySelectors

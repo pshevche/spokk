@@ -1,6 +1,6 @@
-package io.github.pshevche.spokk.runtime.engine.discovery
+package io.github.pshevche.spokk.runtime.discovery
 
-import io.github.pshevche.spokk.runtime.engine.node.FeatureInfo
+import io.github.pshevche.spokk.runtime.node.FeatureInfo
 import org.junit.platform.engine.UniqueId
 
 internal object UniqueIdUtil {
