@@ -11,7 +11,7 @@ class SpecInfo(val reflection: Class<*>) : NodeInfo {
     override fun getName(): String = reflection.name
 
     private fun collectFeaturesInfo(spec: Class<*>): List<FeatureInfo> {
-        return spec.declaredMethods
+        return spec.methods
             .filter { it.isAnnotationPresent(FeatureMetadata::class.java) }
             .map { FeatureInfo(this, it) }
     }

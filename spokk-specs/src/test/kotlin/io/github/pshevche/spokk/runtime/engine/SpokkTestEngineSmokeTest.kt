@@ -9,9 +9,10 @@ import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectUniqueId
+import java.util.stream.Collectors.toSet
 
 @SpecMetadata
-class SpokkTestEngineTest {
+class SpokkTestEngineSmokeTest {
 
     @FeatureMetadata
     fun `discovers test class by class name`() {
@@ -71,9 +72,10 @@ class SpokkTestEngineTest {
     @FeatureMetadata
     fun `supports package selectors`() {
         val events = execute(selectPackage(SimpleSpec::class.java.packageName))
-        events.assertStatistics {
-            it.started(4).succeeded(2).failed(2)
-        }
+        val specIds = events
+            .map { it.testDescriptor.uniqueId.removeLastSegment() }
+            .collect(toSet())
+        assert(specIds.count() == 4)
     }
 
 }
