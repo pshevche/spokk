@@ -11,8 +11,12 @@ plugins {
 
 dependencies {
     testImplementation(gradleTestKit())
+    testImplementation(libs.junit.platform.testkit)
     testImplementation(projects.spokkCore)
+
     testRuntimeOnly(libs.junit.platform.launcher)
+
+    testFixturesImplementation(projects.spokkCore)
 }
 
 tasks.test {

@@ -1,5 +1,6 @@
 package io.github.pshevche.spokk.runtime.engine.discovery
 
+import io.github.pshevche.spokk.runtime.engine.node.FeatureNode
 import io.github.pshevche.spokk.runtime.engine.node.SpecNode
 import org.junit.platform.engine.DiscoverySelector
 import org.junit.platform.engine.TestDescriptor
@@ -29,7 +30,7 @@ class MethodSelectorResolver : SelectorResolver {
      * parent descriptor is a spokk spec, the method is annotated w/ `FeatureMetadata`, and the unique ID
      * value is equal to the name of the one of the methods declared in the spec class.
      */
-    override fun resolve(selector: UniqueIdSelector, context: SelectorResolver.Context): Resolution? {
+    override fun resolve(selector: UniqueIdSelector, context: SelectorResolver.Context): Resolution {
         val uniqueId = selector.uniqueId
 
         if (UniqueIdUtil.isFeature(uniqueId)) {
@@ -47,14 +48,21 @@ class MethodSelectorResolver : SelectorResolver {
         parentSelector: DiscoverySelector,
     ): Resolution {
         return context.resolve(parentSelector)
-            .filter { isSpecNodeWithMatchingFeatures(it, methodName) }
-            .map { Resolution.match(SelectorResolver.Match.partial(it)) }
+            .filter { it is SpecNode }
+            .map { spec ->
+                spec.apply {
+                    this.children
+                        .filter { !isMatchingFeature(it, methodName) }
+                        .forEach { it.removeFromHierarchy() }
+                }
+            }
+            .map { Resolution.match(SelectorResolver.Match.exact(it)) }
             .orElseGet { Resolution.unresolved() }
     }
 
-    private fun isSpecNodeWithMatchingFeatures(descriptor: TestDescriptor, methodName: String): Boolean {
-        if (descriptor is SpecNode) {
-            return descriptor.nodeInfo.features.count { it.getName() == methodName } > 0
+    private fun isMatchingFeature(descriptor: TestDescriptor, methodName: String): Boolean {
+        if (descriptor is FeatureNode) {
+            return descriptor.nodeInfo.getName() == methodName
         }
 
         return false
