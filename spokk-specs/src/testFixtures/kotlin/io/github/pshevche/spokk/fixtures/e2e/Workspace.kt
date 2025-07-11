@@ -17,9 +17,9 @@ class Workspace {
     private val buildFile = projectDir.resolve("build.gradle.kts").toFile()
     private val sourcesDir = projectDir.resolve("src/test/kotlin").toFile()
 
-    fun setup() {
+    fun setup(kotlinVersion: String = System.getProperty("spokk.kotlinVersion")) {
         configureRepositories()
-        applyPlugins()
+        applyPlugins(kotlinVersion)
         configureTestTasks()
     }
 
@@ -62,14 +62,12 @@ class Workspace {
         }
     """.trimIndent()
 
-    private fun applyPlugins() {
-        val kotlinVersion = System.getProperty("spokk.kotlinVersion")
+    private fun applyPlugins(kotlinVersion: String) {
         buildFile.appendText(
             """
                 
             plugins {
                 kotlin("jvm") version "$kotlinVersion"
-                kotlin("plugin.power-assert") version "$kotlinVersion"
                 id("io.github.pshevche.spokk") version "latest.integration"
             }
             """.trimIndent()
