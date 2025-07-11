@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle/plugins/plugins.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle/plugins/plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/spokk.iml" filepath="$PROJECT_DIR$/.idea/spokk.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-core/spokk.spokk-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-core/spokk.spokk-core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" />
