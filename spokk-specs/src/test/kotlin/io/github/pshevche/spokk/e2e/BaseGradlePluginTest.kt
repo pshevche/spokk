@@ -1,6 +1,6 @@
-package io.github.pshevche.spokk.compilation
+package io.github.pshevche.spokk.e2e
 
-import io.github.pshevche.spokk.fixtures.Workspace
+import io.github.pshevche.spokk.fixtures.e2e.Workspace
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 

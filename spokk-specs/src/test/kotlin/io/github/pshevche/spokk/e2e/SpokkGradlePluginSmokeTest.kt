@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.compilation
+package io.github.pshevche.spokk.e2e
 
 import io.github.pshevche.spokk.lang.given
 import io.github.pshevche.spokk.lang.internal.FeatureMetadata

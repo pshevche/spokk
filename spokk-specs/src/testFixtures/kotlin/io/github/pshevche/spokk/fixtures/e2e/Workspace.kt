@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.fixtures
+package io.github.pshevche.spokk.fixtures.e2e
 
 import kotlin.io.path.createTempDirectory
 
