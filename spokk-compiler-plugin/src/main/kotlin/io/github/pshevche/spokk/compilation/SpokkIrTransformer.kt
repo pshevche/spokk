@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.file
+import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.superClass
 
@@ -25,6 +26,9 @@ internal class SpokkIrTransformer(pluginContext: IrPluginContext) : IrElementTra
 
         if (context.specs.contains(declaration.superClass)) {
             specFound(declaration)
+            declaration.functions
+                .filter { it.isInheritedFeature() }
+                .forEach { featureFound(it) }
         }
 
         return result
