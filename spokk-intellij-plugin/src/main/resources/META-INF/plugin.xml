@@ -1,0 +1,12 @@
+<idea-plugin>
+    <id>io.github.pshevche.spokk.spokk-intellij-plugin</id>
+    <name>Spokk</name>
+    <vendor url="https://www.github.com/pshevche">Pavlo Shevchenko</vendor>
+    <description><![CDATA[
+    Integration for the Spokk test framework
+  ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+</idea-plugin>
