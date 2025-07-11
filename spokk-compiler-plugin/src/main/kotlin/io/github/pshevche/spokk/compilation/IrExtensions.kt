@@ -1,0 +1,42 @@
+@file:OptIn(UnsafeDuringIrConstructionAPI::class)
+
+package io.github.pshevche.spokk.compilation
+
+import io.github.pshevche.spokk.compilation.SpokkIrConstants.FEATURE_METADATA_FQN
+import io.github.pshevche.spokk.compilation.SpokkIrConstants.SPEC_METADATA_FQN
+import io.github.pshevche.spokk.compilation.SpokkIrConstants.SPOKK_BLOCKS_FQN
+import org.jetbrains.kotlin.backend.common.CompilationException
+import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.descriptors.Modality
+import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
+import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
+import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
+import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
+import org.jetbrains.kotlin.ir.util.hasAnnotation
+import org.jetbrains.kotlin.name.ClassId
+import org.jetbrains.kotlin.name.FqName
+
+fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
+    val referenceIrClass = this.referenceClass(classId(className))
+
+    if (referenceIrClass == null) {
+        throw CompilationException("Cannot find class ${className}", null, null, null)
+    }
+
+    return referenceIrClass
+}
+
+fun IrClass.hasSpecMetadata() = this.hasAnnotation(classId(SPEC_METADATA_FQN))
+
+fun IrClass.isAbstract() = this.modality == Modality.ABSTRACT || this.modality == Modality.OPEN
+
+fun IrFunction.hasFeatureMetadata() = this.hasAnnotation(classId(FEATURE_METADATA_FQN))
+
+fun IrGetObjectValue.isSpokkLabel() = SPOKK_BLOCKS_FQN.contains(symbol.owner.fqNameWhenAvailable?.asString())
+
+fun IrCall.isSpokkLabel() = SPOKK_BLOCKS_FQN.contains(symbol.owner.fqNameWhenAvailable?.asString())
+
+private fun classId(className: String): ClassId = ClassId.topLevel(FqName(className))

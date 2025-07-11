@@ -1,5 +1,7 @@
 package io.github.pshevche.spokk.fixtures.e2e
 
+import org.gradle.testkit.runner.BuildResult
+import org.gradle.testkit.runner.GradleRunner
 import kotlin.io.path.createTempDirectory
 
 class Workspace {
@@ -8,7 +10,20 @@ class Workspace {
     private val settingsFile = projectDir.resolve("settings.gradle.kts").toFile()
     private val buildFile = projectDir.resolve("build.gradle.kts").toFile()
 
-    fun configurePluginRepositories() {
+    fun setup() {
+        configurePluginRepositories()
+        applySpokkPlugin()
+    }
+
+    fun run(vararg args: String): BuildResult {
+        return GradleRunner.create()
+            .withProjectDir(projectDir.toFile())
+            .withArguments(*args)
+            .forwardOutput()
+            .build()
+    }
+
+    private fun configurePluginRepositories() {
         settingsFile.writeText(
             """
             pluginManagement {
@@ -23,11 +38,11 @@ class Workspace {
         )
     }
 
-    fun applySpokkPlugin() {
+    private fun applySpokkPlugin() {
         buildFile.writeText(
             """
             plugins {
-                id("io.github.pshevche.spokk") version "0.1"
+                id("io.github.pshevche.spokk") version "latest.integration"
             }
             """.trimIndent()
         )

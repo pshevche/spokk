@@ -4,24 +4,16 @@ package io.github.pshevche.spokk.lang
 
 object given
 
-fun given(description: String) {
-    // throw UnsupportedOperationException("Supposed to be used only by Spokk internals")
-}
+fun given(description: String) {}
 
 object expect
 
-fun expect(description: String) {
-    // throw UnsupportedOperationException("Supposed to be used only by Spokk internals")
-}
+fun expect(description: String) {}
 
 object `when`
 
-fun `when`(description: String) {
-    // throw UnsupportedOperationException("Supposed to be used only by Spokk internals")
-}
+fun `when`(description: String) {}
 
 object then
 
-fun then(description: String) {
-    // throw UnsupportedOperationException("Supposed to be used only by Spokk internals")
-}
+fun then(description: String) {}

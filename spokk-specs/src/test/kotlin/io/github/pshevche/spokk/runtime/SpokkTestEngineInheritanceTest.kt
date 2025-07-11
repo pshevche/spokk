@@ -4,18 +4,14 @@ import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedAbstractParent
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedFromAbstractChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenParentSpec
-import io.github.pshevche.spokk.lang.internal.FeatureMetadata
-import io.github.pshevche.spokk.lang.internal.SpecMetadata
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
 import io.github.pshevche.spokk.runtime.EngineTestKitUtils.execute
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 
-@SpecMetadata
 class SpokkTestEngineInheritanceTest {
 
-    @FeatureMetadata
     fun `discovers feature methods defined both in parent and child`() {
         `when`
         val events = execute(selectClass(InheritedOpenChildSpec::class.java))
@@ -26,7 +22,6 @@ class SpokkTestEngineInheritanceTest {
         }
     }
 
-    @FeatureMetadata
     fun `discovers class with features declared only in the parent class`() {
         `when`
         val events = execute(selectClass(InheritedFromAbstractChildSpec::class.java))
@@ -37,7 +32,6 @@ class SpokkTestEngineInheritanceTest {
         }
     }
 
-    @FeatureMetadata
     fun `discovers feature methods by name from parent class`() {
         `when`
         val events = execute(selectMethod(InheritedOpenChildSpec::class.java, "successful parent feature"))
@@ -48,7 +42,6 @@ class SpokkTestEngineInheritanceTest {
         }
     }
 
-    @FeatureMetadata
     fun `does not discover tests in open classes`() {
         `when`
         val events = execute(selectClass(InheritedOpenParentSpec::class.java))
@@ -57,7 +50,6 @@ class SpokkTestEngineInheritanceTest {
         events.assertStatistics { it.started(0) }
     }
 
-    @FeatureMetadata
     fun `does not discover tests in abstract classes`() {
         `when`
         val events = execute(selectClass(InheritedAbstractParentSpec::class.java))

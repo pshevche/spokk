@@ -2,11 +2,12 @@ package io.github.pshevche.spokk.compilation
 
 import com.google.auto.service.AutoService
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
+import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.config.CompilerConfiguration
+import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 
-@Suppress("unused")
 @AutoService(CompilerPluginRegistrar::class)
 @OptIn(ExperimentalCompilerApi::class)
 class SpokkCompilerPlugin : CompilerPluginRegistrar() {
@@ -17,5 +18,14 @@ class SpokkCompilerPlugin : CompilerPluginRegistrar() {
         configuration: CompilerConfiguration
     ) {
         IrGenerationExtension.registerExtension(SpokkIrGenerationExtension())
+    }
+
+    private class SpokkIrGenerationExtension : IrGenerationExtension {
+        override fun generate(
+            moduleFragment: IrModuleFragment,
+            pluginContext: IrPluginContext
+        ) {
+            moduleFragment.transform(SpokkIrTransformer(pluginContext), null)
+        }
     }
 }
