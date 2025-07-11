@@ -4,7 +4,7 @@ internal object SpokkIrConstants {
     val SPOKK_BLOCKS_FQN = setOf(
         "io.github.pshevche.spokk.lang.given",
         "io.github.pshevche.spokk.lang.expect",
-        "io.github.pshevche.spokk.lang.`when`",
+        "io.github.pshevche.spokk.lang.when",
         "io.github.pshevche.spokk.lang.then",
     )
 

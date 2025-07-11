@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
+import org.jetbrains.kotlin.ir.interpreter.getLastOverridden
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
@@ -34,6 +35,8 @@ fun IrClass.hasSpecMetadata() = this.hasAnnotation(classId(SPEC_METADATA_FQN))
 fun IrClass.isAbstract() = this.modality == Modality.ABSTRACT || this.modality == Modality.OPEN
 
 fun IrFunction.hasFeatureMetadata() = this.hasAnnotation(classId(FEATURE_METADATA_FQN))
+
+fun IrFunction.isInheritedFeature() = this.getLastOverridden().hasFeatureMetadata()
 
 fun IrGetObjectValue.isSpokkLabel() = SPOKK_BLOCKS_FQN.contains(symbol.owner.fqNameWhenAvailable?.asString())
 
