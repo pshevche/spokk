@@ -1,22 +1,18 @@
 package io.github.pshevche.spokk.runtime
 
 import io.github.pshevche.spokk.fixtures.runtime.samples.SimpleSpec
-import io.github.pshevche.spokk.lang.internal.FeatureMetadata
-import io.github.pshevche.spokk.lang.internal.SpecMetadata
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
 import io.github.pshevche.spokk.runtime.EngineTestKitUtils.execute
+import java.util.stream.Collectors.toSet
 import org.junit.platform.engine.UniqueId
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectUniqueId
-import java.util.stream.Collectors.toSet
 
-@SpecMetadata
 class SpokkTestEngineSmokeTest {
 
-    @FeatureMetadata
     fun `discovers test class by class name`() {
         `when`
         val events = execute(selectClass(SimpleSpec::class.java))
@@ -27,7 +23,6 @@ class SpokkTestEngineSmokeTest {
         }
     }
 
-    @FeatureMetadata
     fun `discovers test class by unique id`() {
         `when`
         val events =
@@ -39,7 +34,6 @@ class SpokkTestEngineSmokeTest {
         }
     }
 
-    @FeatureMetadata
     fun `discovers feature method by method name`() {
         `when`
         var events = execute(selectMethod(SimpleSpec::class.java, "successful feature"))
@@ -58,7 +52,6 @@ class SpokkTestEngineSmokeTest {
         }
     }
 
-    @FeatureMetadata
     fun `discovers feature method by unique id`() {
         `when`
         var events = execute(
@@ -89,7 +82,6 @@ class SpokkTestEngineSmokeTest {
         }
     }
 
-    @FeatureMetadata
     fun `supports package selectors`() {
         `when`
         val events = execute(selectPackage(SimpleSpec::class.java.packageName))
