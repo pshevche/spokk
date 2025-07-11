@@ -1,4 +1,4 @@
-package io.github.pshevche.spokk.runtime
+package io.github.pshevche.spokk.fixtures.runtime
 
 import org.junit.platform.engine.DiscoverySelector
 import org.junit.platform.testkit.engine.EngineTestKit
