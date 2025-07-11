@@ -6,7 +6,7 @@ import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenParentSpec
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
-import io.github.pshevche.spokk.runtime.EngineTestKitUtils.execute
+import io.github.pshevche.spokk.fixtures.runtime.EngineTestKitUtils.execute
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 

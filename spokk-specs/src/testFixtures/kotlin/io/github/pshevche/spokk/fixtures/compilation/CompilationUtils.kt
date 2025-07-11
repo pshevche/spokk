@@ -8,7 +8,11 @@ import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 
 @OptIn(ExperimentalCompilerApi::class)
 object CompilationUtils {
-    fun transform(sourceFile: SourceFile) = compile(sourceFile, SpokkCompilerPlugin())
+    fun transform(sample: TransformationSample) =
+        SpokkTransformationResult(
+            compile(sample.source, SpokkCompilerPlugin()),
+            compile(sample.expected)
+        )
 
     fun compile(
         sourceFile: SourceFile,

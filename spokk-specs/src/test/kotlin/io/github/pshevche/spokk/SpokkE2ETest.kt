@@ -5,7 +5,7 @@ import io.github.pshevche.spokk.lang.given
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
 
-class SpokkGradlePluginSmokeTest {
+class SpokkE2ETest {
 
     val workspace = Workspace()
 

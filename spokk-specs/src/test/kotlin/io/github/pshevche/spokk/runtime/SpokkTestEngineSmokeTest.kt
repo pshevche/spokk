@@ -3,7 +3,7 @@ package io.github.pshevche.spokk.runtime
 import io.github.pshevche.spokk.fixtures.runtime.samples.SimpleSpec
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
-import io.github.pshevche.spokk.runtime.EngineTestKitUtils.execute
+import io.github.pshevche.spokk.fixtures.runtime.EngineTestKitUtils.execute
 import java.util.stream.Collectors.toSet
 import org.junit.platform.engine.UniqueId
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
