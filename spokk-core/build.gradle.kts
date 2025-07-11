@@ -1,6 +1,7 @@
 plugins {
     `maven-publish`
     alias(libs.plugins.kotlin.kapt)
+    id("spokk.artifact-under-test-producer")
     id("spokk.kotlin-library")
 }
 
