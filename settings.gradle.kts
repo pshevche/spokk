@@ -8,6 +8,7 @@ includeBuild("gradle/plugins")
 
 include("spokk-compiler-plugin")
 include("spokk-core")
+include("spokk-intellij-plugin")
 include("spokk-gradle-plugin")
 include("spokk-specs")
 
