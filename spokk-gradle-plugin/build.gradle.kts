@@ -1,9 +1,9 @@
 plugins {
     `java-gradle-plugin`
     alias(libs.plugins.plugin.publish)
+    id("spokk.artifact-under-test-producer")
     id("spokk.compiler-plugin-config")
     id("spokk.kotlin-library")
-    id("spokk.plugin-under-test-producer")
 }
 
 dependencies {

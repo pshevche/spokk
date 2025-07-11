@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     `java-test-fixtures`
     alias(libs.plugins.kotlin.power.assert)
+    id("spokk.artifact-under-test-consumer")
     id("spokk.compiler-plugin-consumer")
-    id("spokk.plugin-under-test-consumer")
 }
 
 dependencies {
@@ -28,6 +28,9 @@ tasks.test {
     useJUnitPlatform {
         includeEngines.add("spokk")
     }
+    systemProperty("spokk.workspaceDir", layout.buildDirectory.dir("spokk-specs-workspaces").get().asFile.absolutePath)
+    systemProperty("spokk.kotlinVersion", libs.versions.kotlin.get())
+    systemProperty("spokk.junitPlatformVersion", libs.versions.junit.platform.get())
 }
 
 powerAssert {

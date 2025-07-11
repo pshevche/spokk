@@ -2,11 +2,11 @@ plugins {
     `maven-publish`
 }
 
-configurations.create("pluginUnderTest") {
+configurations.create("artifactUnderTest") {
     isCanBeResolved = false
     isCanBeConsumed = true
     attributes {
-        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, "plugin-under-test"))
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, "artifact-under-test"))
     }
 }
 
@@ -23,5 +23,5 @@ publishing {
 extra["repoForTest"] = repoForTest.get().asFile.absolutePath
 
 artifacts {
-    add("pluginUnderTest", repoForTest)
+    add("artifactUnderTest", repoForTest)
 }
