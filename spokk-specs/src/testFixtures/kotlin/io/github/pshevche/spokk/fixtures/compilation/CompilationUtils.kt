@@ -8,15 +8,11 @@ import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 
 @OptIn(ExperimentalCompilerApi::class)
 object CompilationUtils {
-    fun transform(sample: TransformationSample) =
-        SpokkTransformationResult(
-            compile(sample.source, SpokkCompilerPlugin()),
-            compile(sample.expected)
-        )
+    fun transform(source: SourceFile) = compile(source, SpokkCompilerPlugin())
 
     fun compile(
         sourceFile: SourceFile,
-        vararg additionalPlugins: CompilerPluginRegistrar
+        vararg additionalPlugins: CompilerPluginRegistrar,
     ): SpokkCompilationResult {
         val irDumpBuilder = StringBuilder()
         val result = KotlinCompilation().apply {

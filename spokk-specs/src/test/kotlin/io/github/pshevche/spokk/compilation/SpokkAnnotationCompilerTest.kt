@@ -1,8 +1,9 @@
 package io.github.pshevche.spokk.compilation
 
+import io.github.pshevche.spokk.fixtures.compilation.CompilationUtils.compile
 import io.github.pshevche.spokk.fixtures.compilation.CompilationUtils.transform
-import io.github.pshevche.spokk.fixtures.compilation.Samples
-import io.github.pshevche.spokk.fixtures.compilation.TransformationSample
+import io.github.pshevche.spokk.compilation.TestDataFactory.specWithSingleFeature
+import io.github.pshevche.spokk.compilation.TransformationSample.Companion.sampleFromResource
 import io.github.pshevche.spokk.lang.expect
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 
@@ -10,42 +11,43 @@ import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 class SpokkAnnotationCompilerTest {
 
     private fun assertTransformation(sample: TransformationSample) {
-        val result = transform(sample)
-        assert(result.isSuccess())
-        assert(result.actualDump == result.expectedDump)
+        val actual = transform(sample.source)
+        val expected = compile(sample.expected)
+        assert(actual.isSuccess() && expected.isSuccess())
+        assert(actual.irDump == actual.irDump)
     }
 
     fun `keeps classes without spokk labels untransformed`() {
         expect
-        assertTransformation(Samples.NON_SPEC)
+        assertTransformation(sampleFromResource("NonSpec"))
     }
 
     fun `annotates classes with feature methods with @SpecMetadata`() {
         expect
-        assertTransformation(Samples.SPEC_WITH_SINGLE_FEATURE)
+        assertTransformation(sampleFromResource("SingleFeatureSpec"))
     }
 
     fun `annotates features with spokk labels with @FeatureMetadata`() {
         expect
-        assertTransformation(Samples.specWithSingleFeature("given"))
-        assertTransformation(Samples.specWithSingleFeature("given(\"description\")"))
-        assertTransformation(Samples.specWithSingleFeature("expect"))
-        assertTransformation(Samples.specWithSingleFeature("expect(\"description\")"))
-        assertTransformation(Samples.specWithSingleFeature("`when`"))
-        assertTransformation(Samples.specWithSingleFeature("`when`(\"description\")"))
-        assertTransformation(Samples.specWithSingleFeature("then"))
-        assertTransformation(Samples.specWithSingleFeature("then(\"description\")"))
+        assertTransformation(specWithSingleFeature("given"))
+        assertTransformation(specWithSingleFeature("given(\"description\")"))
+        assertTransformation(specWithSingleFeature("expect"))
+        assertTransformation(specWithSingleFeature("expect(\"description\")"))
+        assertTransformation(specWithSingleFeature("`when`"))
+        assertTransformation(specWithSingleFeature("`when`(\"description\")"))
+        assertTransformation(specWithSingleFeature("then"))
+        assertTransformation(specWithSingleFeature("then(\"description\")"))
     }
 
     fun `does not annotate abstract spec classes`() {
         expect
-        assertTransformation(Samples.ABSTRACT_CLASS_WITH_FEATURES)
-        assertTransformation(Samples.OPEN_CLASS_WITH_FEATURES)
+        assertTransformation(sampleFromResource("AbstractBaseSpec"))
+        assertTransformation(sampleFromResource("OpenBaseSpec"))
     }
 
     fun `annotates child classes with @SpecMetadata if parent contains features`() {
         expect
-        assertTransformation(Samples.SPEC_WITH_INHERITED_FEATURES)
+        assertTransformation(sampleFromResource("SpecWithInheritedFeatures"))
     }
 
 }
