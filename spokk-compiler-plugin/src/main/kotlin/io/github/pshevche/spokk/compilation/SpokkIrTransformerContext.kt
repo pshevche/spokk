@@ -32,7 +32,7 @@ internal class SpokkIrTransformerContext(
     fun isFeature(feature: IrFunction) = specs[feature.parentAsClass]?.features[feature] != null
     fun isInheritedFeature(feature: IrFunction) = isFeature(feature.getLastOverridden())
 
-    internal class SpecContext() {
+    internal class SpecContext {
         private var featureOrdinal: Int = -1
         var features: MutableMap<IrFunction, FeatureContext> = mutableMapOf()
 
