@@ -14,7 +14,7 @@ class SpokkAnnotationCompilerTest {
         val actual = transform(sample.source)
         val expected = compile(sample.expected)
         assert(actual.isSuccess() && expected.isSuccess())
-        assert(actual.irDump == actual.irDump)
+        assert(actual.irDump == expected.irDump)
     }
 
     fun `keeps classes without spokk labels untransformed`() {
