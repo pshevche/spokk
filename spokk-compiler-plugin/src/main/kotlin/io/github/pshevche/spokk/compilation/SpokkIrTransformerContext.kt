@@ -16,8 +16,31 @@ package io.github.pshevche.spokk.compilation
 
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.interpreter.getLastOverridden
+import org.jetbrains.kotlin.ir.util.parentAsClass
 
-internal data class SpokkIrTransformerContext(
-    val specs: MutableSet<IrClass> = mutableSetOf(),
-    val features: MutableSet<IrFunction> = mutableSetOf()
-)
+internal class SpokkIrTransformerContext(
+    private val specs: MutableMap<IrClass, SpecContext> = mutableMapOf(),
+) {
+    fun addSpec(clazz: IrClass): Boolean = specs.putIfAbsent(clazz, SpecContext()) == null
+    fun isSpec(clazz: IrClass?) = specs.containsKey(clazz)
+
+    fun addFeature(feature: IrFunction, ordinalOverride: Int? = null) =
+        specs[feature.parentAsClass]!!.addFeature(feature, ordinalOverride)
+
+    fun featureOrdinal(feature: IrFunction) = specs[feature.parentAsClass]!!.features[feature]!!.ordinal
+    fun isFeature(feature: IrFunction) = specs[feature.parentAsClass]?.features[feature] != null
+    fun isInheritedFeature(feature: IrFunction) = isFeature(feature.getLastOverridden())
+
+    internal class SpecContext {
+        private var featureOrdinal: Int = -1
+        var features: MutableMap<IrFunction, FeatureContext> = mutableMapOf()
+
+        fun addFeature(feature: IrFunction, ordinalOverride: Int?): Boolean {
+            featureOrdinal = ordinalOverride ?: (featureOrdinal + 1)
+            return features.putIfAbsent(feature, FeatureContext(featureOrdinal)) == null
+        }
+    }
+
+    internal class FeatureContext(val ordinal: Int)
+}

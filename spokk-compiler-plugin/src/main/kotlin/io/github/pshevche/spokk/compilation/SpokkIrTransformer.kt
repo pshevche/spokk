@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
+import org.jetbrains.kotlin.ir.interpreter.getLastOverridden
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.file
 import org.jetbrains.kotlin.ir.util.functions
@@ -36,16 +37,19 @@ internal class SpokkIrTransformer(pluginContext: IrPluginContext) : IrElementTra
     private val irFactory = SpokkIrFactory(pluginContext)
 
     override fun visitClassNew(declaration: IrClass): IrStatement {
-        val result = super.visitClassNew(declaration)
+        // visit parent classes to determine whether there are any inherited features
+        declaration.superClass?.let { super.visitClassNew(it) }
 
-        if (context.specs.contains(declaration.superClass)) {
+        // replay transformations of inherited features
+        if (context.isSpec(declaration.superClass)) {
             specFound(declaration)
             declaration.functions
-                .filter { it.isInheritedFeature() }
-                .forEach { featureFound(it) }
+                .filter { context.isInheritedFeature(it) }
+                .forEach { featureFound(it, context.featureOrdinal(it.getLastOverridden())) }
         }
 
-        return result
+        // transform current class
+        return super.visitClassNew(declaration)
     }
 
     override fun visitGetObjectValue(expression: IrGetObjectValue): IrExpression {
@@ -65,19 +69,19 @@ internal class SpokkIrTransformer(pluginContext: IrPluginContext) : IrElementTra
     }
 
     private fun specFound(clazz: IrClass) {
-        context.specs.add(clazz)
-        if (!clazz.hasSpecMetadata() && !clazz.isAbstract()) {
+        if (context.addSpec(clazz) && !clazz.isOpenOrAbstract()) {
             clazz.annotations += irFactory.specMetadataAnnotation()
         }
     }
 
-    private fun featureFound(feature: IrFunction) {
-        context.features.add(feature)
-        if (!feature.hasFeatureMetadata()) {
-            feature.annotations += irFactory.featureMetadataAnnotation()
-        }
-
+    private fun featureFound(feature: IrFunction, ordinalOverride: Int? = null) {
         specFound(feature.parentAsClass)
+        if (context.addFeature(feature, ordinalOverride)) {
+            feature.annotations += irFactory.featureMetadataAnnotation(
+                feature.startOffset,
+                context.featureOrdinal(feature)
+            )
+        }
     }
 
     private fun currentFunction(expression: IrGetObjectValue): IrFunction {

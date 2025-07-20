@@ -4,12 +4,12 @@ import io.github.pshevche.spokk.lang.expect
 
 class InheritedOpenChildSpec : InheritedOpenParentSpec() {
 
-    fun `successful child one feature`() {
+    fun `successful child feature`() {
         expect
         assert(true)
     }
 
-    fun `failing child one feature`() {
+    fun `failing child feature`() {
         expect
         assert(false)
     }

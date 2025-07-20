@@ -26,7 +26,10 @@ internal class SpecInfo(val reflection: Class<*>) : NodeInfo {
 
     private fun collectFeaturesInfo(spec: Class<*>): List<FeatureInfo> {
         return spec.methods
-            .filter { it.isAnnotationPresent(FeatureMetadata::class.java) }
-            .map { FeatureInfo(this, it) }
+            .mapNotNull { reflection ->
+                reflection.getAnnotation(FeatureMetadata::class.java)
+                    ?.let { FeatureInfo(this, reflection, it.ordinal) }
+            }
+            .sortedBy { it.ordinal }
     }
 }

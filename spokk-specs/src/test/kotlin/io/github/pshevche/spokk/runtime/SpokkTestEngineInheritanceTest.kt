@@ -1,12 +1,12 @@
 package io.github.pshevche.spokk.runtime
 
+import io.github.pshevche.spokk.fixtures.runtime.EngineTestKitUtils.execute
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedAbstractParentSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedFromAbstractChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenChildSpec
 import io.github.pshevche.spokk.fixtures.runtime.samples.InheritedOpenParentSpec
 import io.github.pshevche.spokk.lang.then
 import io.github.pshevche.spokk.lang.`when`
-import io.github.pshevche.spokk.fixtures.runtime.EngineTestKitUtils.execute
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod
 
@@ -56,6 +56,25 @@ class SpokkTestEngineInheritanceTest {
 
         then
         events.assertStatistics { it.started(0) }
+    }
+
+    fun `executes inherited features before own features`() {
+        `when`
+        val features = execute(selectClass(InheritedOpenChildSpec::class.java))
+            .started()
+            .filter { it.testDescriptor.children.isEmpty() }
+            .map { it.testDescriptor.displayName }
+            .toList()
+
+        then
+        assert(
+            features == listOf(
+                "successful parent feature",
+                "failing parent feature",
+                "successful child feature",
+                "failing child feature"
+            )
+        )
     }
 
 }

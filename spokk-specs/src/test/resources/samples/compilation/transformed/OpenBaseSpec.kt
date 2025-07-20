@@ -1,5 +1,5 @@
-open class BaseSpec {
-    @io.github.pshevche.spokk.lang.internal.FeatureMetadata
+open class OpenBaseSpec {
+    @io.github.pshevche.spokk.lang.internal.FeatureMetadata(0)
     fun `some feature`() {
         io.github.pshevche.spokk.lang.expect
         assert(true)
