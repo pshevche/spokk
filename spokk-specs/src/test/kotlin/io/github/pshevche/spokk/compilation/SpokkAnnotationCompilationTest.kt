@@ -2,23 +2,9 @@ package io.github.pshevche.spokk.compilation
 
 import io.github.pshevche.spokk.compilation.TestDataFactory.specWithSingleFeature
 import io.github.pshevche.spokk.compilation.TransformationSample.Companion.sampleFromResource
-import io.github.pshevche.spokk.fixtures.compilation.CompilationUtils.compile
-import io.github.pshevche.spokk.fixtures.compilation.CompilationUtils.transform
 import io.github.pshevche.spokk.lang.expect
-import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 
-@OptIn(ExperimentalCompilerApi::class)
-class SpokkAnnotationCompilationTest {
-
-    private fun assertTransformation(sample: TransformationSample) {
-        val actual = transform(sample.source)
-        val expected = compile(sample.expected)
-        val aDump = actual.irDump
-        val eDump = expected.irDump
-
-        assert(actual.isSuccess() && expected.isSuccess())
-        assert(aDump == eDump)
-    }
+class SpokkAnnotationCompilationTest : BaseCompilationTest() {
 
     fun `keeps classes without spokk labels untransformed`() {
         expect
