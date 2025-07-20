@@ -18,6 +18,7 @@ import io.github.pshevche.spokk.compilation.SpokkIrConstants.FEATURE_METADATA_FQ
 import io.github.pshevche.spokk.compilation.SpokkIrConstants.SPEC_METADATA_FQN
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
+import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.fromSymbolOwner
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
@@ -29,7 +30,13 @@ internal class SpokkIrFactory(private val pluginContext: IrPluginContext) {
 
     fun specMetadataAnnotation() = createConstructorCall(pluginContext, SPEC_METADATA_FQN)
 
-    fun featureMetadataAnnotation() = createConstructorCall(pluginContext, FEATURE_METADATA_FQN)
+    fun featureMetadataAnnotation(startOffset: Int, ordinal: Int) =
+        createConstructorCall(pluginContext, FEATURE_METADATA_FQN).apply {
+            arguments[0] = intConst(startOffset, ordinal)
+        }
+
+    private fun intConst(startOffset: Int, value: Int) =
+        IrConstImpl.int(startOffset, startOffset, pluginContext.irBuiltIns.intType, value)
 
     private fun createConstructorCall(pluginContext: IrPluginContext, className: String): IrConstructorCall {
         val classSymbol = pluginContext.referenceClass(className)

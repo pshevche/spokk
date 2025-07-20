@@ -14,4 +14,7 @@
 
 package io.github.pshevche.spokk.lang.internal
 
-annotation class FeatureMetadata
+annotation class FeatureMetadata(
+    val ordinal: Int,
+)
+
