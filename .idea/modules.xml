@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-compiler-plugin/spokk.spokk-compiler-plugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-core/spokk.spokk-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-core/spokk.spokk-core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-gradle-plugin/spokk.spokk-gradle-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spokk-intellij-plugin/spokk.spokk-intellij-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spokk-intellij-plugin/spokk.spokk-intellij-plugin.main.iml" />
     </modules>
   </component>
 </project>
