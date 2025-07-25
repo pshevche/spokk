@@ -12,6 +12,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <testFramework id="Spokk" implementation="io.github.pshevche.spokk.intellij.SpokkTestFramework"/>
+        <runConfigurationProducer implementation="io.github.pshevche.spokk.intellij.SpokkRunConfigurationProducer"/>
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
