@@ -15,6 +15,8 @@
 package io.github.pshevche.spokk.intellij.extensions
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
 import io.github.pshevche.spokk.intellij.SpokkBlockPsiElementVisitor
 import org.jetbrains.kotlin.idea.base.psi.kotlinFqName
 import org.jetbrains.kotlin.psi.KtClass
@@ -44,9 +46,11 @@ fun PsiElement.enclosingFeature(): KtFunction? {
 }
 
 private fun PsiElement.hasSpokkBlocks(): Boolean {
-    val visitor = SpokkBlockPsiElementVisitor()
-    accept(visitor)
-    return visitor.hasSpokkBlocks()
+    return CachedValuesManager.getCachedValue(this) {
+        val visitor = SpokkBlockPsiElementVisitor()
+        accept(visitor)
+        CachedValueProvider.Result(visitor.hasSpokkBlocks(), this)
+    }
 }
 
 fun PsiElement.requiredFqn(): String = requireNotNull(this.kotlinFqName).asString()
