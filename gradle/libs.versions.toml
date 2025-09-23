@@ -1,7 +1,7 @@
 [versions]
 auto-service = "1.1.1"
 detekt = "1.23.8"
-kotlin = "2.2.10"
+kotlin = "2.2.20"
 junit-platform = "1.13.4"
 
 [plugins]
@@ -18,5 +18,5 @@ google-autoservice-annotations = { module = "com.google.auto.service:auto-servic
 junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junit-platform" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
 junit-platform-testkit = { module = "org.junit.platform:junit-platform-testkit", version.ref = "junit-platform" }
-kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version = "0.8.0" }
+kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version = "0.9.0" }
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
