@@ -25,9 +25,7 @@ dependencies {
 }
 
 tasks.test {
-    useJUnitPlatform {
-        includeEngines.add("spokk")
-    }
+    useJUnitPlatform()
     systemProperty("spokk.workspaceDir", layout.buildDirectory.dir("spokk-specs-workspaces").get().asFile.absolutePath)
     systemProperty("spokk.kotlinVersion", libs.versions.kotlin.get())
     systemProperty("spokk.junitPlatformVersion", libs.versions.junit.platform.get())
