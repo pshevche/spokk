@@ -2,7 +2,7 @@
 auto-service = "1.1.1"
 detekt = "1.23.8"
 kotlin = "2.2.21"
-junit-platform = "1.14.0"
+junit-platform = "6.0.0"
 
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version = "5.7.0" }
