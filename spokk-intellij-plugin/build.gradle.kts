@@ -1,3 +1,5 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
     alias(libs.plugins.intellij.platform)
     id("spokk.kotlin-library")
@@ -15,10 +17,14 @@ repositories {
 dependencies {
     intellijPlatform {
         create("IC", "2025.1")
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Plugin.Java)
         bundledPlugin("org.jetbrains.kotlin")
         bundledPlugin("org.jetbrains.plugins.gradle")
     }
+
+    testImplementation(libs.hamcrest)
+    testImplementation(libs.junit4)
 }
 
 val releaseNotesFile = layout.projectDirectory.dir("docs").file("release-notes.txt")

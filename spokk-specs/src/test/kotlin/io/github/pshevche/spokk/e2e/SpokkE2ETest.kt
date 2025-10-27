@@ -28,4 +28,42 @@ class SpokkE2ETest {
             assert(it.contains("FailingSpec > failing feature 2 FAILED"))
         }
     }
+
+    fun `respects spec filters`() {
+        given
+        workspace.setup()
+        workspace.addSuccessfulSpec()
+        workspace.addFailingSpec()
+
+        `when`
+        val result = workspace.build("test", "--tests", "SuccessfulSpec")
+
+        then
+        assert(result.task(":test")!!.outcome == TaskOutcome.SUCCESS)
+        result.output.let {
+            assert(it.contains("SuccessfulSpec > passing feature 1 PASSED"))
+            assert(it.contains("SuccessfulSpec > passing feature 2 PASSED"))
+            assert(!it.contains("FailingSpec > failing feature 1 FAILED"))
+            assert(!it.contains("FailingSpec > failing feature 2 FAILED"))
+        }
+    }
+
+    fun `respects feature filters`() {
+        given
+        workspace.setup()
+        workspace.addSuccessfulSpec()
+        workspace.addFailingSpec()
+
+        `when`
+        val result = workspace.build("test", "--tests", "SuccessfulSpec.passing feature 1")
+
+        then
+        assert(result.task(":test")!!.outcome == TaskOutcome.SUCCESS)
+        result.output.let {
+            assert(it.contains("SuccessfulSpec > passing feature 1 PASSED"))
+            assert(!it.contains("SuccessfulSpec > passing feature 2 PASSED"))
+            assert(!it.contains("FailingSpec > failing feature 1 FAILED"))
+            assert(!it.contains("FailingSpec > failing feature 2 FAILED"))
+        }
+    }
 }
