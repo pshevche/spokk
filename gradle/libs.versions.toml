@@ -1,7 +1,7 @@
 [versions]
 auto-service = "1.1.1"
 detekt = "1.23.8"
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 junit-platform = "1.14.0"
 
 [plugins]
