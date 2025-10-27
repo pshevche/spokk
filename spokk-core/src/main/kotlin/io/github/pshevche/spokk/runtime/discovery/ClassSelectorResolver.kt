@@ -38,7 +38,7 @@ internal class ClassSelectorResolver(private val classNameFilter: (String) -> Bo
     /**
      * The requested class is recognized by the "spokk" engine if it has the `SpecMetadata` annotation.
      */
-    override fun resolve(selector: ClassSelector, context: SelectorResolver.Context): Resolution? {
+    override fun resolve(selector: ClassSelector, context: SelectorResolver.Context): Resolution {
         return resolveClass(selector.getJavaClass(), context)
     }
 
@@ -46,7 +46,7 @@ internal class ClassSelectorResolver(private val classNameFilter: (String) -> Bo
      * The requested uniqueId is a "spokk" spec class if its type is "spec" and the referenced class
      * has the `SpecMetadata` annotation.
      */
-    override fun resolve(selector: UniqueIdSelector, context: SelectorResolver.Context): Resolution? {
+    override fun resolve(selector: UniqueIdSelector, context: SelectorResolver.Context): Resolution {
         val uniqueId = selector.uniqueId
         if (UniqueIdUtil.isSpec(uniqueId)) {
             val specClass = ReflectionSupport.tryToLoadClass(uniqueId.lastSegment.value)
@@ -57,7 +57,7 @@ internal class ClassSelectorResolver(private val classNameFilter: (String) -> Bo
         return Resolution.unresolved()
     }
 
-    private fun resolveClass(specClass: Class<*>, context: SelectorResolver.Context): Resolution? {
+    private fun resolveClass(specClass: Class<*>, context: SelectorResolver.Context): Resolution {
         if (isRunnableSpec(specClass) && classNameFilter(specClass.getName())) {
             return context
                 .addToParent { Optional.of(createSpecNode(it, specClass)) }

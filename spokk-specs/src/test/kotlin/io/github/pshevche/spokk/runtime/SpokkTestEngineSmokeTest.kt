@@ -26,7 +26,7 @@ class SpokkTestEngineSmokeTest {
     fun `discovers test class by unique id`() {
         `when`
         val events =
-            execute(selectUniqueId(UniqueId.forEngine("spokk").append("spec", SimpleSpec::class.qualifiedName)))
+            execute(selectUniqueId(UniqueId.forEngine("spokk").append("spec", SimpleSpec::class.qualifiedName!!)))
 
         then
         events.assertStatistics {
@@ -57,7 +57,7 @@ class SpokkTestEngineSmokeTest {
         var events = execute(
             selectUniqueId(
                 UniqueId.forEngine("spokk")
-                    .append("spec", SimpleSpec::class.qualifiedName)
+                    .append("spec", SimpleSpec::class.qualifiedName!!)
                     .append("feature", "successful feature")
             )
         )
@@ -71,7 +71,7 @@ class SpokkTestEngineSmokeTest {
         events = execute(
             selectUniqueId(
                 UniqueId.forEngine("spokk")
-                    .append("spec", SimpleSpec::class.qualifiedName)
+                    .append("spec", SimpleSpec::class.qualifiedName!!)
                     .append("feature", "failing feature")
             )
         )
