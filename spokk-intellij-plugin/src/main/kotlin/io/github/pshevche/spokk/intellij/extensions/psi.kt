@@ -28,7 +28,7 @@ fun PsiElement.isSpec() = this is KtClass && hasSpokkBlocks()
 fun PsiElement.isFeatureMethod() = this is KtFunction && hasSpokkBlocks()
 
 fun PsiElement.enclosingSpec(): KtClass? {
-    val ktClass = this.getStrictParentOfType<KtClass>()
+    val ktClass = this as? KtClass ?: this.getStrictParentOfType<KtClass>()
     return when {
         ktClass == null -> null
         ktClass.isSpec() -> ktClass
@@ -37,7 +37,7 @@ fun PsiElement.enclosingSpec(): KtClass? {
 }
 
 fun PsiElement.enclosingFeature(): KtFunction? {
-    val ktFunction = this.getStrictParentOfType<KtFunction>()
+    val ktFunction = this as? KtFunction ?: this.getStrictParentOfType<KtFunction>()
     return when {
         ktFunction == null -> null
         ktFunction.isFeatureMethod() -> ktFunction
