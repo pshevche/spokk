@@ -16,15 +16,18 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        create("IC", "2025.1")
-        testFramework(TestFrameworkType.Platform)
-        testFramework(TestFrameworkType.Plugin.Java)
+        intellijIdeaCommunity("2025.2.4")
+
         bundledPlugin("org.jetbrains.kotlin")
         bundledPlugin("org.jetbrains.plugins.gradle")
+
+        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Plugin.Java)
     }
 
     testImplementation(libs.hamcrest)
     testImplementation(libs.junit4)
+    testImplementation(libs.mockk)
 }
 
 val releaseNotesFile = layout.projectDirectory.dir("docs").file("release-notes.txt")
