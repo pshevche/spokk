@@ -26,7 +26,7 @@ import java.nio.file.Paths
  * However, IntelliJ does not export fixtures for testing with proper Gradle projects (e.g., `KotlinGradleProjectTestCase`),
  * and I don't have the capacity at the moment to set up this infrastructure myself.
  */
-class RunConfigurationProducerTest : LightJavaCodeInsightFixtureTestCase() {
+class SpokkRunConfigurationProducerTest : LightJavaCodeInsightFixtureTestCase() {
 
     private lateinit var producer: SpokkRunConfigurationProducer
 
@@ -36,7 +36,7 @@ class RunConfigurationProducerTest : LightJavaCodeInsightFixtureTestCase() {
     }
 
     override fun getTestDataPath(): String {
-        val path = Paths.get("./src/test/resources/RunConfigurationProducerTest/").toAbsolutePath()
+        val path = Paths.get("./src/test/resources/SpokkRunConfigurationProducerTest/").toAbsolutePath()
         return path.toString()
     }
 
@@ -48,7 +48,7 @@ class RunConfigurationProducerTest : LightJavaCodeInsightFixtureTestCase() {
             LangDataKeys.MODULE.name -> module
             else -> null
         }
-    }, "RunConfigurationProducerTest")
+    }, "SpokkRunConfigurationProducerTest")
 
     @Suppress("UnstableApiUsage")
     private fun mockGradleConfiguration(moduleName: String): GradleRunConfiguration {
