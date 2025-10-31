@@ -22,7 +22,6 @@ import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
 import io.github.pshevche.spokk.intellij.extensions.enclosingFeature
 import io.github.pshevche.spokk.intellij.extensions.enclosingSpec
-import io.github.pshevche.spokk.intellij.extensions.hasSpokkPackages
 import io.github.pshevche.spokk.intellij.extensions.requiredFqn
 import kotlinx.io.files.SystemPathSeparator
 import org.jetbrains.kotlin.idea.base.projectStructure.externalProjectPath
@@ -41,10 +40,6 @@ class SpokkRunConfigurationProducer : GradleRunConfigurationProducer() {
         val module = context.module ?: return false
         val element = sourceElement.get() ?: return false
         val location = context.location ?: return false
-
-        if (!module.hasSpokkPackages()) {
-            return false
-        }
 
         val spec = element.enclosingSpec() ?: return false
         val feature = element.enclosingFeature()
@@ -97,10 +92,6 @@ class SpokkRunConfigurationProducer : GradleRunConfigurationProducer() {
     ): Boolean {
         val module = context.module ?: return false
         val element = context.psiLocation ?: return false
-
-        if (!module.hasSpokkPackages()) {
-            return false
-        }
 
         val spec = element.enclosingSpec() ?: return false
         val feature = element.enclosingFeature()
