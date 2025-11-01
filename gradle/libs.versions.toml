@@ -5,7 +5,7 @@ kotlin = "2.2.21"
 junit-platform = "6.0.0"
 
 [plugins]
-buildconfig = { id = "com.github.gmazzo.buildconfig", version = "5.7.0" }
+buildconfig = { id = "com.github.gmazzo.buildconfig", version = "5.7.1" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
