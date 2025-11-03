@@ -16,7 +16,6 @@
           </compositeBuild>
         </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -24,6 +23,7 @@
             <option value="$PROJECT_DIR$/spokk-compiler-plugin" />
             <option value="$PROJECT_DIR$/spokk-core" />
             <option value="$PROJECT_DIR$/spokk-gradle-plugin" />
+            <option value="$PROJECT_DIR$/spokk-intellij-plugin" />
             <option value="$PROJECT_DIR$/spokk-specs" />
           </set>
         </option>
