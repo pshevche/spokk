@@ -15,13 +15,22 @@
 package io.github.pshevche.spokk.intellij.extensions
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import io.github.pshevche.spokk.intellij.SpokkBlockPsiElementVisitor
 import org.jetbrains.kotlin.idea.base.psi.kotlinFqName
 import org.jetbrains.kotlin.psi.KtClass
+import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.psiUtil.getStrictParentOfType
+
+private val SPOKK_BLOCKS_FQN = setOf(
+    "io.github.pshevche.spokk.lang.given",
+    "io.github.pshevche.spokk.lang.expect",
+    "io.github.pshevche.spokk.lang.when",
+    "io.github.pshevche.spokk.lang.then",
+)
 
 fun PsiElement.isSpec() = this is KtClass && hasSpokkBlocks()
 
@@ -54,3 +63,18 @@ private fun PsiElement.hasSpokkBlocks(): Boolean {
 }
 
 fun PsiElement.requiredFqn(): String = requireNotNull(this.kotlinFqName).asString()
+
+fun PsiElement.isSpokkBlock(): Boolean {
+    return getSpokkImportDirectives(containingFile)
+        .any { it.endsWith(text) }
+}
+
+private fun getSpokkImportDirectives(file: PsiFile): List<String> {
+    if (file is KtFile) {
+        return file.importDirectives
+            .mapNotNull { it.importedReference?.text }
+            .filter { SPOKK_BLOCKS_FQN.contains(it) }
+    }
+
+    return listOf()
+}

@@ -14,6 +14,8 @@
         <testFramework id="Spokk" implementation="io.github.pshevche.spokk.intellij.SpokkTestFramework"/>
         <runConfigurationProducer implementation="io.github.pshevche.spokk.intellij.SpokkRunConfigurationProducer"/>
         <implicitUsageProvider implementation="io.github.pshevche.spokk.intellij.SpokkImplicitUsageProvider"/>
+        <lang.inspectionSuppressor language="kotlin"
+                                   implementationClass="io.github.pshevche.spokk.intellij.SpokkUnusedBlockInspectionSuppressor"/>
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">

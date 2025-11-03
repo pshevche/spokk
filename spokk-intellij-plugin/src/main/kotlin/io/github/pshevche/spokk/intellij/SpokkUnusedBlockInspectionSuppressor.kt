@@ -14,19 +14,24 @@
 
 package io.github.pshevche.spokk.intellij
 
+
+import com.intellij.codeInspection.InspectionSuppressor
+import com.intellij.codeInspection.SuppressQuickFix
 import com.intellij.psi.PsiElement
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import io.github.pshevche.spokk.intellij.extensions.isSpokkBlock
-import org.jetbrains.kotlin.psi.KtTreeVisitorVoid
+import org.jetbrains.kotlin.psi.KtNameReferenceExpression
 
-internal class SpokkBlockPsiElementVisitor : KtTreeVisitorVoid() {
+class SpokkUnusedBlockInspectionSuppressor : InspectionSuppressor {
 
-    private var hasSpokkBlocks = false
+    override fun isSuppressedFor(element: PsiElement, toolId: String): Boolean {
+        if (toolId == "UnusedExpression" && element is KtNameReferenceExpression) {
+            return element.isSpokkBlock()
+        }
 
-    override fun visitElement(element: PsiElement) {
-        hasSpokkBlocks = hasSpokkBlocks || (element is LeafPsiElement && element.isSpokkBlock())
-        super.visitElement(element)
+        return false
     }
 
-    fun hasSpokkBlocks() = hasSpokkBlocks
+    override fun getSuppressActions(element: PsiElement?, toolId: String): Array<out SuppressQuickFix?> =
+        SuppressQuickFix.EMPTY_ARRAY
+
 }
