@@ -36,7 +36,7 @@ class SpokkTestFramework : TestFramework {
 
     override fun getLanguage(): Language = KotlinLanguage.INSTANCE
 
-    // TODO pshevche: use a dedicated icon
+    // TODO https://github.com/pshevche/spokk/issues/61
     override fun getIcon(): Icon = AllIcons.RunConfigurations.Junit
 
     override fun isLibraryAttached(module: Module): Boolean = module.hasSpokkPackages()
@@ -73,7 +73,7 @@ class SpokkTestFramework : TestFramework {
     // spokk does not support tear down methods yet
     override fun getTearDownMethodFileTemplateDescriptor(): FileTemplateDescriptor? = null
 
-    // TODO pshevche: implement
+    // TODO https://github.com/pshevche/spokk/issues/67
     override fun getTestMethodFileTemplateDescriptor(): FileTemplateDescriptor = FileTemplateDescriptor("unimplemented")
 
     // spokk does not support ignoring tests yet

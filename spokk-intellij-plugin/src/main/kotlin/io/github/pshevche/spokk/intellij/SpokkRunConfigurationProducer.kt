@@ -77,7 +77,7 @@ class SpokkRunConfigurationProducer : GradleRunConfigurationProducer() {
         }
         val moduleName = modulePath.substring(modulePath.lastIndexOf(SystemPathSeparator) + 1)
 
-        // TODO pshevche: support not only the default test task
+        // TODO https://github.com/pshevche/spokk/issues/68
         val defaultTestTask = GradleTasksIndices.getInstance(module.project)
             .findTasks(modulePath, ":${moduleName}:test")
             .singleOrNull() ?: return emptyList()
