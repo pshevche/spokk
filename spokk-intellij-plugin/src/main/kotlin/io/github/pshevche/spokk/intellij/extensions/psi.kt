@@ -30,6 +30,7 @@ private val SPOKK_BLOCKS_FQN = setOf(
     "io.github.pshevche.spokk.lang.expect",
     "io.github.pshevche.spokk.lang.when",
     "io.github.pshevche.spokk.lang.then",
+    "io.github.pshevche.spokk.lang.and",
 )
 
 fun PsiElement.isSpec() = this is KtClass && hasSpokkBlocks()

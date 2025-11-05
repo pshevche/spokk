@@ -26,6 +26,8 @@ class SpokkAnnotationCompilationTest : BaseCompilationTest() {
         assertTransformation(specWithSingleFeature("`when`(\"description\")"))
         assertTransformation(specWithSingleFeature("then"))
         assertTransformation(specWithSingleFeature("then(\"description\")"))
+        assertTransformation(specWithSingleFeature("and"))
+        assertTransformation(specWithSingleFeature("and(\"description\")"))
     }
 
     fun `does not annotate abstract spec classes`() {

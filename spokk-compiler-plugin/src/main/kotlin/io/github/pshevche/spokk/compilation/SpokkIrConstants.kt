@@ -20,6 +20,7 @@ internal object SpokkIrConstants {
         "io.github.pshevche.spokk.lang.expect",
         "io.github.pshevche.spokk.lang.when",
         "io.github.pshevche.spokk.lang.then",
+        "io.github.pshevche.spokk.lang.and",
     )
 
     const val SPEC_METADATA_FQN = "io.github.pshevche.spokk.lang.internal.SpecMetadata"

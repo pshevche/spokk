@@ -31,3 +31,7 @@ fun `when`(description: String) {}
 object then
 
 fun then(description: String) {}
+
+object and
+
+fun and(description: String) {}
