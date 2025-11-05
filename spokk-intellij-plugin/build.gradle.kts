@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.extensions.excludeCoroutines
 
 plugins {
     alias(libs.plugins.intellij.platform)
@@ -27,7 +28,10 @@ dependencies {
 
     testImplementation(libs.hamcrest)
     testImplementation(libs.junit4)
-    testImplementation(libs.mockk)
+    testImplementation(libs.mockk) {
+        // see https://github.com/JetBrains/intellij-platform-gradle-plugin/issues/2029#issuecomment-3385764519
+        excludeCoroutines()
+    }
 }
 
 val releaseNotesFile = layout.projectDirectory.dir("docs").file("release-notes.txt")
