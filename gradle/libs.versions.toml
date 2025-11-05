@@ -7,7 +7,7 @@ junit-platform = "6.0.1"
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version = "5.7.1" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-intellij-platform = { id = "org.jetbrains.intellij.platform", version = "2.5.0" }
+intellij-platform = { id = "org.jetbrains.intellij.platform", version = "2.10.4" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-power-assert = { id = "org.jetbrains.kotlin.plugin.power-assert", version.ref = "kotlin" }
