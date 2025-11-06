@@ -18,14 +18,7 @@ class SpokkAnnotationCompilationTest : BaseCompilationTest() {
 
     fun `annotates features with spokk labels with @FeatureMetadata`() {
         expect
-        assertTransformation(specWithSingleFeature("given"))
-        assertTransformation(specWithSingleFeature("given(\"description\")"))
         assertTransformation(specWithSingleFeature("expect"))
-        assertTransformation(specWithSingleFeature("expect(\"description\")"))
-        assertTransformation(specWithSingleFeature("`when`"))
-        assertTransformation(specWithSingleFeature("`when`(\"description\")"))
-        assertTransformation(specWithSingleFeature("then"))
-        assertTransformation(specWithSingleFeature("then(\"description\")"))
     }
 
     fun `does not annotate abstract spec classes`() {

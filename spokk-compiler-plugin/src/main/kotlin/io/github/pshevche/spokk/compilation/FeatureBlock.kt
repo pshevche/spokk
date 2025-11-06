@@ -12,26 +12,19 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused", "ClassName", "FunctionNaming", "Filename")
+package io.github.pshevche.spokk.compilation
 
-package io.github.pshevche.spokk.lang
+internal enum class FeatureBlock(val displayName: String, val fqn: String) {
+    GIVEN("given", "io.github.pshevche.spokk.lang.given"),
+    WHEN("when", "io.github.pshevche.spokk.lang.when"),
+    THEN("then", "io.github.pshevche.spokk.lang.then"),
+    EXPECT("expect", "io.github.pshevche.spokk.lang.expect"),
+    AND("and", "io.github.pshevche.spokk.lang.and");
 
-object given
+    companion object {
+        val SPOKK_BLOCKS_FQN = entries.map { it.fqn }.toSet()
 
-fun given(description: String) {}
+        fun from(fqn: String) = entries.find { fqn == it.fqn }
+    }
 
-object expect
-
-fun expect(description: String) {}
-
-object `when`
-
-fun `when`(description: String) {}
-
-object then
-
-fun then(description: String) {}
-
-object and
-
-fun and(description: String) {}
+}

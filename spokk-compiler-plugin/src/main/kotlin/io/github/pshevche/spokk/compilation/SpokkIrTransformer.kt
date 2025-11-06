@@ -19,6 +19,7 @@ import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
@@ -36,6 +37,13 @@ internal class SpokkIrTransformer(pluginContext: IrPluginContext) : IrElementTra
     private val context = SpokkIrTransformerContext()
     private val irFactory = SpokkIrFactory(pluginContext)
 
+    override fun visitFileNew(declaration: IrFile): IrFile {
+        context.currentFile = declaration
+        val file = super.visitFileNew(declaration)
+        context.currentFile = null
+        return file
+    }
+
     override fun visitClassNew(declaration: IrClass): IrStatement {
         // visit parent classes to determine whether there are any inherited features
         declaration.superClass?.let { super.visitClassNew(it) }
@@ -52,17 +60,28 @@ internal class SpokkIrTransformer(pluginContext: IrPluginContext) : IrElementTra
         return super.visitClassNew(declaration)
     }
 
+    override fun visitFunctionNew(declaration: IrFunction): IrStatement {
+        context.initializeBlockValidator(declaration)
+        val statement = super.visitFunctionNew(declaration)
+        context.discardBlockValidator(declaration)?.assertBlockStructureIsComplete()
+        return statement
+    }
+
     override fun visitGetObjectValue(expression: IrGetObjectValue): IrExpression {
-        if (expression.isSpokkLabel()) {
-            featureFound(currentFunction(expression))
+        expression.asIrSpokkBlock(context.currentFile)?.let {
+            val feature = currentFunction(expression)
+            context.blockValidator(feature).validate(it)
+            featureFound(feature)
         }
 
         return super.visitGetObjectValue(expression)
     }
 
     override fun visitCall(expression: IrCall): IrExpression {
-        if (expression.isSpokkLabel()) {
-            featureFound(currentFunction(expression))
+        expression.asIrSpokkBlock(context.currentFile)?.let {
+            val feature = currentFunction(expression)
+            context.blockValidator(feature).validate(it)
+            featureFound(feature)
         }
 
         return super.visitCall(expression)
