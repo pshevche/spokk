@@ -29,15 +29,15 @@ class SpokkCompilerPlugin : CompilerPluginRegistrar() {
         get() = true
 
     override fun ExtensionStorage.registerExtensions(
-        configuration: CompilerConfiguration
+        configuration: CompilerConfiguration,
     ) {
         IrGenerationExtension.registerExtension(SpokkIrGenerationExtension())
     }
 
-    private class SpokkIrGenerationExtension : IrGenerationExtension {
+    private class SpokkIrGenerationExtension() : IrGenerationExtension {
         override fun generate(
             moduleFragment: IrModuleFragment,
-            pluginContext: IrPluginContext
+            pluginContext: IrPluginContext,
         ) {
             moduleFragment.transform(SpokkIrTransformer(pluginContext), null)
         }

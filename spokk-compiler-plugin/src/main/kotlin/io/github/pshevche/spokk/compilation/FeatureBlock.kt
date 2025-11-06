@@ -14,7 +14,17 @@
 
 package io.github.pshevche.spokk.compilation
 
-internal object SpokkIrConstants {
-    const val SPEC_METADATA_FQN = "io.github.pshevche.spokk.lang.internal.SpecMetadata"
-    const val FEATURE_METADATA_FQN = "io.github.pshevche.spokk.lang.internal.FeatureMetadata"
+internal enum class FeatureBlock(val displayName: String, val fqn: String) {
+    GIVEN("given", "io.github.pshevche.spokk.lang.given"),
+    WHEN("when", "io.github.pshevche.spokk.lang.when"),
+    THEN("then", "io.github.pshevche.spokk.lang.then"),
+    EXPECT("expect", "io.github.pshevche.spokk.lang.expect"),
+    AND("and", "io.github.pshevche.spokk.lang.and");
+
+    companion object {
+        val SPOKK_BLOCKS_FQN = entries.map { it.fqn }.toSet()
+
+        fun from(fqn: String) = entries.find { fqn == it.fqn }
+    }
+
 }

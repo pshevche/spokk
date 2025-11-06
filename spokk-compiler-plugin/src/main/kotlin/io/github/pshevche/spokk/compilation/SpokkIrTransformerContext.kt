@@ -15,12 +15,15 @@
 package io.github.pshevche.spokk.compilation
 
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.interpreter.getLastOverridden
 import org.jetbrains.kotlin.ir.util.parentAsClass
 
 internal class SpokkIrTransformerContext(
+    var currentFile: IrFile? = null,
     private val specs: MutableMap<IrClass, SpecContext> = mutableMapOf(),
+    private val blockValidators: MutableMap<IrFunction, FeatureBlockIrElementValidator> = mutableMapOf(),
 ) {
     fun addSpec(clazz: IrClass): Boolean = specs.putIfAbsent(clazz, SpecContext()) == null
     fun isSpec(clazz: IrClass?) = specs.containsKey(clazz)
@@ -31,6 +34,10 @@ internal class SpokkIrTransformerContext(
     fun featureOrdinal(feature: IrFunction) = specs[feature.parentAsClass]!!.features[feature]!!.ordinal
     fun isFeature(feature: IrFunction) = specs[feature.parentAsClass]?.features[feature] != null
     fun isInheritedFeature(feature: IrFunction) = isFeature(feature.getLastOverridden())
+
+    fun initializeBlockValidator(function: IrFunction) = blockValidators.computeIfAbsent(function) { FeatureBlockIrElementValidator() }
+    fun blockValidator(function: IrFunction) = blockValidators[function]!!
+    fun discardBlockValidator(function: IrFunction) = blockValidators.remove(function)
 
     internal class SpecContext {
         private var featureOrdinal: Int = -1

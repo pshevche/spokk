@@ -1,8 +1,19 @@
 package io.github.pshevche.spokk.compilation
 
+import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.SourceFile.Companion.kotlin
 
 object TestDataFactory {
+
+    fun specWithFeatureBody(featureBody: String): SourceFile = kotlin(
+        "Spec.kt", """
+            class Spec {
+                fun `some feature`() {
+                    ${featureBody}
+                }
+            } 
+        """.trimIndent()
+    )
 
     fun specWithSingleFeature(label: String) = TransformationSample(
         kotlin(

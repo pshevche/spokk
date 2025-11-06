@@ -16,11 +16,11 @@
 
 package io.github.pshevche.spokk.compilation
 
-import io.github.pshevche.spokk.compilation.SpokkIrConstants.SPOKK_BLOCKS_FQN
 import org.jetbrains.kotlin.backend.common.CompilationException
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
@@ -29,20 +29,23 @@ import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 
-fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
-    val referenceIrClass = this.referenceClass(classId(className))
-
-    if (referenceIrClass == null) {
-        throw CompilationException("Cannot find class $className", null, null, null)
-    }
-
-    return referenceIrClass
+internal fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
+    return this.referenceClass(classId(className)) ?: throw CompilationException(
+        "Cannot find class $className",
+        null,
+        null,
+        null
+    )
 }
 
-fun IrClass.isOpenOrAbstract() = this.modality == Modality.OPEN || this.modality == Modality.ABSTRACT
+internal fun IrClass.isOpenOrAbstract() = this.modality == Modality.OPEN || this.modality == Modality.ABSTRACT
 
-fun IrGetObjectValue.isSpokkLabel() = SPOKK_BLOCKS_FQN.contains(symbol.owner.fqNameWhenAvailable?.asString())
+internal fun IrGetObjectValue.asIrSpokkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
 
-fun IrCall.isSpokkLabel() = SPOKK_BLOCKS_FQN.contains(symbol.owner.fqNameWhenAvailable?.asString())
+internal fun IrGetObjectValue.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
+
+internal fun IrCall.asIrSpokkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+
+internal fun IrCall.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 
 private fun classId(className: String): ClassId = ClassId.topLevel(FqName(className))
