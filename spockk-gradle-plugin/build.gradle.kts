@@ -1,0 +1,18 @@
+plugins {
+    `java-gradle-plugin`
+    alias(libs.plugins.plugin.publish)
+    id("spockk.artifact-under-test-producer")
+    id("spockk.compiler-plugin-config")
+    id("spockk.kotlin-library")
+}
+
+dependencies {
+    implementation(kotlin("gradle-plugin-api"))
+}
+
+gradlePlugin {
+    val spockk by plugins.creating {
+        id = "io.github.pshevche.spockk"
+        implementationClass = "io.github.pshevche.spockk.compilation.SpockkGradlePlugin"
+    }
+}

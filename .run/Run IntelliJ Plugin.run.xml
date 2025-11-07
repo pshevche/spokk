@@ -11,7 +11,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value=":spokk-intellij-plugin:runIde" />
+          <option value=":spockk-intellij-plugin:runIde" />
         </list>
       </option>
       <option name="vmOptions" value="" />

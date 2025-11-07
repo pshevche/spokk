@@ -20,11 +20,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/gradle/plugins" />
-            <option value="$PROJECT_DIR$/spokk-compiler-plugin" />
-            <option value="$PROJECT_DIR$/spokk-core" />
-            <option value="$PROJECT_DIR$/spokk-gradle-plugin" />
-            <option value="$PROJECT_DIR$/spokk-intellij-plugin" />
-            <option value="$PROJECT_DIR$/spokk-specs" />
+            <option value="$PROJECT_DIR$/spockk-compiler-plugin" />
+            <option value="$PROJECT_DIR$/spockk-core" />
+            <option value="$PROJECT_DIR$/spockk-gradle-plugin" />
+            <option value="$PROJECT_DIR$/spockk-intellij-plugin" />
+            <option value="$PROJECT_DIR$/spockk-specs" />
           </set>
         </option>
       </GradleProjectSettings>
