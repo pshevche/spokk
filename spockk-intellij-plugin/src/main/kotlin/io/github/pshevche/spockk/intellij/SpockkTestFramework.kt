@@ -14,21 +14,21 @@
 
 package io.github.pshevche.spockk.intellij
 
-import com.intellij.icons.AllIcons
 import com.intellij.ide.fileTemplates.FileTemplateDescriptor
 import com.intellij.lang.Language
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.util.IconLoader
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.testIntegration.TestFramework
 import io.github.pshevche.spockk.intellij.extensions.hasSpockkPackages
 import io.github.pshevche.spockk.intellij.extensions.isFeatureMethod
 import io.github.pshevche.spockk.intellij.extensions.isSpec
-import javax.swing.Icon
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import org.jetbrains.kotlin.idea.testIntegration.framework.KotlinPsiBasedTestFramework.Companion.asKtClassOrObject
 import org.jetbrains.kotlin.idea.testIntegration.framework.KotlinPsiBasedTestFramework.Companion.asKtNamedFunction
+import javax.swing.Icon
 
 class SpockkTestFramework : TestFramework {
 
@@ -36,8 +36,7 @@ class SpockkTestFramework : TestFramework {
 
     override fun getLanguage(): Language = KotlinLanguage.INSTANCE
 
-    // TODO https://github.com/pshevche/spockk/issues/61
-    override fun getIcon(): Icon = AllIcons.RunConfigurations.Junit
+    override fun getIcon(): Icon = IconLoader.getIcon("/frameworkIcon.svg", SpockkTestFramework::class.java)
 
     override fun isLibraryAttached(module: Module): Boolean = module.hasSpockkPackages()
 
