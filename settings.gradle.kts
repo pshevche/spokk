@@ -20,14 +20,14 @@ develocity {
     }
 }
 
-rootProject.name = "spokk"
+rootProject.name = "spockk"
 
 includeBuild("gradle/plugins")
 
-include("spokk-compiler-plugin")
-include("spokk-core")
-include("spokk-intellij-plugin")
-include("spokk-gradle-plugin")
-include("spokk-specs")
+include("spockk-compiler-plugin")
+include("spockk-core")
+include("spockk-intellij-plugin")
+include("spockk-gradle-plugin")
+include("spockk-specs")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

@@ -1,7 +1,7 @@
-= Spokk Framework
+= Spockk Framework
 
 This repository reimagines the https://github.com/spockframework/spock[Spock] testing framework for Kotlin.
-The project is work-in-progress. See the approximate roadmap https://github.com/pshevche/spokk/milestones[here].
+The project is work-in-progress. See the approximate roadmap https://github.com/pshevche/spockk/milestones[here].
 
 == Concept
 
@@ -23,7 +23,7 @@ fun `can add numbers`() {
 
 == Modules
 
-* `spokk-compiler-plugin`: contains the implementation of the IR transformer.
-* `spokk-core`: testing engine and specification syntax;
-* `spokk-gradle-plugin`: Gradle plugin that simplifies the application of the `spokk-compiler-plugin`.
-* `spokk-specs`: specifications, implemented using Spokk.
+* `spockk-compiler-plugin`: contains the implementation of the IR transformer.
+* `spockk-core`: testing engine and specification syntax;
+* `spockk-gradle-plugin`: Gradle plugin that simplifies the application of the `spockk-compiler-plugin`.
+* `spockk-specs`: specifications, implemented using Spockk.
