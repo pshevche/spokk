@@ -12,6 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
       - name: Build
