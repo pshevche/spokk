@@ -9,7 +9,7 @@ runs:
       run: ./gradlew build
 
     - name: Upload documentation artifacts
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: ./spockk-docs/build/docs/
         name: spockk-docs
