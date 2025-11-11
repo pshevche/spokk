@@ -17,6 +17,7 @@ publishing {
         create<MavenPublication>("maven") {
             artifactId = "spockk-compiler-plugin"
             from(components["kotlin"])
+            description = "Kotlin compiler plugin that transforms Spockk’s concise specification syntax into runnable tests"
         }
     }
 }

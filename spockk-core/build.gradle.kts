@@ -17,6 +17,7 @@ publishing {
         create<MavenPublication>("maven") {
             artifactId = "spockk-core"
             from(components["kotlin"])
+            description = "Kotlin-native testing and specification framework with expressive BDD-style syntax"
         }
     }
 }

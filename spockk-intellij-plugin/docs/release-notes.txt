@@ -1,1 +1,2 @@
-Initial revision
+- [NEW] Detect Spockk syntax in test sources
+- [NEW] Execute Spockk tests with Gradle from IDE
