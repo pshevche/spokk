@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/gradle/plugins" />
             <option value="$PROJECT_DIR$/spockk-compiler-plugin" />
             <option value="$PROJECT_DIR$/spockk-core" />
+            <option value="$PROJECT_DIR$/spockk-docs" />
             <option value="$PROJECT_DIR$/spockk-gradle-plugin" />
             <option value="$PROJECT_DIR$/spockk-intellij-plugin" />
             <option value="$PROJECT_DIR$/spockk-specs" />

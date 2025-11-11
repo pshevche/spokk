@@ -20,6 +20,7 @@ includeBuild("gradle/plugins")
 
 include("spockk-compiler-plugin")
 include("spockk-core")
+include("spockk-docs")
 include("spockk-intellij-plugin")
 include("spockk-gradle-plugin")
 include("spockk-specs")

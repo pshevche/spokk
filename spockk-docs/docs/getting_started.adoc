@@ -1,0 +1,35 @@
+== Getting Started
+
+Spockk consists of three core modules that must be applied to your project to start using its expressive specification syntax.
+
+The **Spockk Core** module defines the specification syntax and provides a `TestEngine` implementation that allows Spockk tests to run on the JUnit Platform.
+
+.Enable the Spockk test engine in your Gradle project
+[source, kotlin, subs="verbatim,attributes"]
+----
+// build.gradle.kts
+
+dependencies {
+    testImplementation("io.github.pshevche.spockk:spockk-core:{revnumber}")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:{junitPlatformVersion}")
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+----
+
+The **Spockk Gradle plugin** applies a Kotlin compiler plugin that transforms Spockk’s concise specification syntax into runnable tests during compilation.
+
+.Apply the Spockk Gradle plugin to support specification syntax
+[source, kotlin, subs="verbatim,attributes"]
+----
+// build.gradle.kts
+
+plugins {
+    id("io.github.pshevche.spockk") version "{revnumber}"
+}
+----
+
+Finally, for a smooth development experience in JetBrains IDEs, install the **Spockk IntelliJ plugin** from the Marketplace.
+The plugin recognizes Spockk syntax in your tests and enables you to execute them directly from the IDE via Gradle.

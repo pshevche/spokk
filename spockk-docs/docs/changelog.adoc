@@ -1,0 +1,7 @@
+== Changelog
+
+=== v0.1
+
+- [Core] Implement rich BDD-style syntax for defining test features
+- [IntelliJ plugin] Detect Spockk syntax in test sources
+- [IntelliJ plugin] Execute Spockk tests with Gradle from IDE
