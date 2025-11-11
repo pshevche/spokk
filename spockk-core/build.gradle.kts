@@ -12,9 +12,6 @@ dependencies {
     implementation(libs.junit.platform.engine)
 }
 
-group = "io.github.pshevche.spockk"
-version = "0.1"
-
 publishing {
     publications {
         create<MavenPublication>("maven") {

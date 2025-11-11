@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.asciidoctor)
 }
 
-val spockkVersion by project.properties
 tasks.named("asciidoctor", AsciidoctorTask::class) {
     notCompatibleWithConfigurationCache("issue in org.asciidoctor.jvm.convert")
 
@@ -23,7 +22,7 @@ tasks.named("asciidoctor", AsciidoctorTask::class) {
     attributes(
         mapOf(
             "imagesdir" to "images",
-            "revnumber" to spockkVersion,
+            "revnumber" to project.property("version"),
             "junitPlatformVersion" to libs.versions.junit.platform.get()
         )
     )

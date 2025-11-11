@@ -6,9 +6,6 @@ plugins {
     id("spockk.kotlin-library")
 }
 
-group = "io.github.pshevche.spockk"
-version = "0.1"
-
 repositories {
     intellijPlatform {
         defaultRepositories()
