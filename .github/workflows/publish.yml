@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Component to release'
+        default: 'All'
+        type: choice
+        options:
+          - All
+          - Docs
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+      - name: Build
+        run: ./gradlew build
+      - name: Publish documentation
+        if: ${{ github.event.inputs.component == 'Docs' || github.event.inputs.component == 'All' }}
+        uses: ./.github/actions/publish-docs

@@ -12,14 +12,12 @@ dependencies {
     implementation(libs.junit.platform.engine)
 }
 
-group = "io.github.pshevche.spockk"
-version = "0.1"
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "spockk-core"
             from(components["kotlin"])
+            description = "Kotlin-native testing and specification framework with expressive BDD-style syntax"
         }
     }
 }

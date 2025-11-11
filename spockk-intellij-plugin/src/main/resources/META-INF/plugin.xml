@@ -3,7 +3,7 @@
     <name>Spockk</name>
     <vendor url="https://www.github.com/pshevche">Pavlo Shevchenko</vendor>
     <description><![CDATA[
-    Integration for the Spockk test framework
+    Supports seamless integration of the Spockk testing and specification framework with IntelliJ.
   ]]></description>
 
     <depends>com.intellij.modules.platform</depends>

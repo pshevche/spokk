@@ -14,5 +14,6 @@ gradlePlugin {
     val spockk by plugins.creating {
         id = "io.github.pshevche.spockk"
         implementationClass = "io.github.pshevche.spockk.compilation.SpockkGradlePlugin"
+        description = "Applies the Spockk Kotlin compiler plugin to transform concise specification syntax into runnable tests"
     }
 }

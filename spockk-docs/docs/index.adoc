@@ -1,0 +1,12 @@
+= Spockk Framework Documentation
+Pavlo Shevchenko
+:toc: left
+:toclevels: 3
+
+include::introduction.adoc[]
+
+include::getting_started.adoc[]
+
+include::writing_tests.adoc[]
+
+include::changelog.adoc[]

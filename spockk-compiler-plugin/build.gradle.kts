@@ -15,8 +15,9 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = project.name
+            artifactId = "spockk-compiler-plugin"
             from(components["kotlin"])
+            description = "Kotlin compiler plugin that transforms Spockk’s concise specification syntax into runnable tests"
         }
     }
 }
