@@ -1,21 +1,23 @@
 name: "Publish documentation"
 description: "Publish public documentation to Github pages"
 
+inputs:
+  token:
+    required: true
+    description: "GH token to use when deploying pages"
+
 runs:
   using: "composite"
   steps:
-    # expects the setup-gradle action to have run
-    - name: Build documentation
-      run: ./gradlew build
-
+    # expects the documentation to be built
     - name: Upload documentation artifacts
       uses: actions/upload-pages-artifact@v4
       with:
-        path: ./spockk-docs/build/docs/
-        name: spockk-docs
+        name: spockk-docs-${{ github.run_id }}
+        path: spockk-docs/build/docs/
 
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifact_name: spockk-docs
+        token: ${{ inputs.token }}
+        artifact_name: spockk-docs-${{ github.run_id }}

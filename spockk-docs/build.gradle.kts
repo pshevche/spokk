@@ -27,3 +27,7 @@ tasks.named("asciidoctor", AsciidoctorTask::class) {
         )
     )
 }
+
+tasks.named("build") {
+    dependsOn("asciidoctor")
+}
