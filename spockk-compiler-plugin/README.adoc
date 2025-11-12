@@ -1,0 +1,8 @@
+= spockk-compiler-plugin
+
+Implements IR transformations that modify the simplified test syntax into executable tests.
+
+== Noteworthy components
+
+- link:src/main/kotlin/io/github/pshevche/spockk/compilation/SpockkCompilerPlugin.kt[`SpockkCompilerPlugin`]: the entry point for the plugin that registers the IR transformer.
+- link:src/main/kotlin/io/github/pshevche/spockk/compilation/SpockkIrTransformer.kt[`SpockkIrTransformer`]: traverses the IR tree and rewrites specification classes and feature methods (e.g., appends annotations that support the test engine in detecting executable tests).

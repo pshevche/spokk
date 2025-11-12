@@ -1,0 +1,7 @@
+= spockk-gradle-plugin
+
+Gradle plugin that abstracts away the application of the `spockk-compiler-plugin` to Kotlin compiler invocations.
+
+== Noteworthy components
+
+- link:src/main/kotlin/io/github/pshevche/spockk/compilation/SpockkGradlePlugin.kt[SpockkGradlePlugin]: a shallow implementation of `KotlinCompilerPluginSupportPlugin` that defines the GAV coordinates of the Kotlin compiler plugin that has to be applied to the compilation process.

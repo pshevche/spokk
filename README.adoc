@@ -1,29 +1,79 @@
-= Spockk Framework
+image::spockk-docs/docs/images/name_with_icon.svg[]
 
-This repository reimagines the https://github.com/spockframework/spock[Spock] testing framework for Kotlin.
-The project is work-in-progress. See the approximate roadmap https://github.com/pshevche/spockk/milestones[here].
+This repository is home to Spockk, a testing framework that brings https://github.com/spockframework/spock[Spock]'s expressive BDD-style syntax for Groovy to Kotlin.
 
-== Concept
+== Sneak peek
 
-The framework relies on a Kotlin compiler plugin to support an expressive syntax in your test code.
-
-Example:
-
-[source,kotlin]
+[source, kotlin]
 ----
-fun `can add numbers`() {
-    given("two numbers")
-    val a  = 1
-    val b = 2
+import io.github.pshevche.spockk.lang.and
+import io.github.pshevche.spockk.lang.given
+import io.github.pshevche.spockk.lang.`when`
+import io.github.pshevche.spockk.lang.then
 
-    expect("correct sum")
-    assert(a + b == 3)
+class MyFirstSpecification {
+    fun `adding an element to a list`() {
+        given
+        val myList = mutableListOf<Int>()
+
+        `when`
+        myList.add(1)
+
+        and
+        myList.add(2)
+
+        then
+        assert(myList.size == 2)
+    }
 }
 ----
 
-== Modules
+== Getting started
 
-* `spockk-compiler-plugin`: contains the implementation of the IR transformer.
-* `spockk-core`: testing engine and specification syntax;
-* `spockk-gradle-plugin`: Gradle plugin that simplifies the application of the `spockk-compiler-plugin`.
-* `spockk-specs`: specifications, implemented using Spockk.
+- https://pshevche.github.io/spockk/[User guide]
+- https://github.com/pshevche/spockk-example[Example project]
+
+== Development
+
+=== High-level design
+
+The Spock framework for Groovy relies on AST transformations to transform its expressive specification syntax into runnable specification classes.
+The Spockk framework achieves a similar behavior by implementing a Kotlin compiler plugin (https://kotlinlang.org/docs/all-open-plugin.html#0[examples]).
+The following diagram shows the simplified interaction between all the different components that Spockk is composed of.
+
+[plantuml, target="component-diagram", format="png"]
+----
+@startuml
+
+!theme plain
+
+rectangle "spockk-gradle-plugin" as gradle
+rectangle "spockk-intellij-plugin" as intellij
+
+rectangle "Kotlin Compiler" as compiler {
+  [Sources (.kt)]
+  [Compiler frontend]
+  [JVM IR backend]
+  [spockk-compiler-plugin]
+  [Bytecode]
+
+  [Sources (.kt)] --> [Compiler frontend]
+  [Compiler frontend] --> [JVM IR backend] : generate intermediate representation
+  [JVM IR backend] --> [spockk-compiler-plugin]
+  [spockk-compiler-plugin] --> [Bytecode] : transform IR into executable tests
+}
+
+gradle --> compiler : applies spockk-compiler-plugin
+intellij --> [Sources (.kt)] : detects specifications and features
+
+
+@enduml
+----
+
+=== Modules
+- link:spockk-compiler-plugin/README.adoc[`spockk-compiler-plugin`]: implements IR transformations that modify the simplified test syntax into executable tests.
+- link:spockk-core/README.adoc[`spockk-core`]: declares the specification syntax and implements the JUnit Platform `TestEngine` capable of executing transformed tests.
+- link:spockk-docs/README.adoc[`spockk-docs`]: module with user guide.
+- link:spockk-gradle-plugin/README.adoc[`spockk-gradle-plugin`]: Gradle plugin that abstracts away the application of the `spockk-compiler-plugin` to Kotlin compiler invocations.
+- link:spockk-intellij-plugin/README.adoc[`spockk-intellij-plugin`]: provides support for Spockk tests in IntelliJ.
+- link:spockk-specs/README.adoc[`spockk-specs`]: specifications for the framework written with Spockk.
