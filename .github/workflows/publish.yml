@@ -22,8 +22,11 @@ jobs:
         uses: actions/checkout@v5
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
-      - name: Build
-        run: ./gradlew build
+      - name: Build artifacts
+        # TODO: build all artifacts once
+        run: ./gradlew :spockk-docs:build
       - name: Publish documentation
         if: ${{ github.event.inputs.component == 'Docs' || github.event.inputs.component == 'All' }}
         uses: ./.github/actions/publish-docs
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
