@@ -1,4 +1,4 @@
-image::spockk-docs/docs/images/name_with_icon.svg[width=70%, align=center]
+image::spockk-docs/docs/images/name_with_icon.svg[width=50%, align=center]
 
 This repository is home to Spockk, a testing framework that brings https://github.com/spockframework/spock[Spock]'s expressive BDD-style syntax for Groovy to Kotlin.
 
