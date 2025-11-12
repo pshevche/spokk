@@ -72,7 +72,7 @@ intellij --> [Sources (.kt)] : detects specifications and features
 
 === Modules
 - link:spockk-compiler-plugin/README.adoc[`spockk-compiler-plugin`]: implements IR transformations that modify the simplified test syntax into executable tests.
-- link:spockk-core/README.adoc[`spockk-core`]: declares the specification syntax and implements the `TestEngine` capable of executing transformed tests.
+- link:spockk-core/README.adoc[`spockk-core`]: declares the specification syntax and implements the JUnit Platform `TestEngine` capable of executing transformed tests.
 - link:spockk-docs/README.adoc[`spockk-docs`]: module with user guide.
 - link:spockk-gradle-plugin/README.adoc[`spockk-gradle-plugin`]: Gradle plugin that abstracts away the application of the `spockk-compiler-plugin` to Kotlin compiler invocations.
 - link:spockk-intellij-plugin/README.adoc[`spockk-intellij-plugin`]: provides support for Spockk tests in IntelliJ.
