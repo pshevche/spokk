@@ -12,7 +12,10 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <testFramework id="Spockk" implementation="io.github.pshevche.spockk.intellij.SpockkTestFramework"/>
-        <runConfigurationProducer implementation="io.github.pshevche.spockk.intellij.SpockkRunConfigurationProducer"/>
+        <runConfigurationProducer
+                implementation="io.github.pshevche.spockk.intellij.SpockkSpecificationRunConfigurationProducer"/>
+        <runConfigurationProducer
+                implementation="io.github.pshevche.spockk.intellij.SpockkFeatureRunConfigurationProducer"/>
         <implicitUsageProvider implementation="io.github.pshevche.spockk.intellij.SpockkImplicitUsageProvider"/>
         <lang.inspectionSuppressor language="kotlin"
                                    implementationClass="io.github.pshevche.spockk.intellij.SpockkUnusedBlockInspectionSuppressor"/>
