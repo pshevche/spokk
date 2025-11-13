@@ -14,11 +14,13 @@
 
 package io.github.pshevche.spockk.intellij.extensions
 
+import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import io.github.pshevche.spockk.intellij.SpockkBlockPsiElementVisitor
+import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.idea.base.psi.kotlinFqName
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFile
@@ -79,3 +81,5 @@ private fun getSpockkImportDirectives(file: PsiFile): List<String> {
 
     return listOf()
 }
+
+fun PsiClass.toKtClass(): KtClass? = (this as? KtLightClass)?.kotlinOrigin as? KtClass

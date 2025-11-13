@@ -26,7 +26,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    systemProperty("spockk.workspaceDir", layout.buildDirectory.dir("spockk-specs-workspaces").get().asFile.absolutePath)
+    systemProperty(
+        "spockk.workspaceDir",
+        layout.buildDirectory.dir("spockk-specs-workspaces").get().asFile.absolutePath
+    )
     systemProperty("spockk.kotlinVersion", libs.versions.kotlin.get())
     systemProperty("spockk.junitPlatformVersion", libs.versions.junit.platform.get())
 }
