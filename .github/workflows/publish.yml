@@ -38,6 +38,16 @@ jobs:
           signingInMemoryKeyId: ${{ secrets.PGP_SIGNING_KEY_ID }}
           signingInMemoryKey: ${{ secrets.PGP_SIGNING_KEY }}
           signingInMemoryKeyPassphrase: ${{ secrets.PGP_SIGNING_KEY_PASSPHRASE }}
+      - name: Publish Kotlin compiler plugin module
+        if: ${{ github.event.inputs.component == 'spockk-compiler-plugin' || github.event.inputs.component == 'all' }}
+        uses: ./.github/actions/publish-maven-central
+        with:
+          module: "spockk-compiler-plugin"
+          mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          signingInMemoryKeyId: ${{ secrets.PGP_SIGNING_KEY_ID }}
+          signingInMemoryKey: ${{ secrets.PGP_SIGNING_KEY }}
+          signingInMemoryKeyPassphrase: ${{ secrets.PGP_SIGNING_KEY_PASSPHRASE }}
       - name: Publish documentation
         if: ${{ github.event.inputs.component == 'spockk-docs' || github.event.inputs.component == 'all' }}
         uses: ./.github/actions/publish-docs
