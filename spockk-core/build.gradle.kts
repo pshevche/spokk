@@ -1,8 +1,8 @@
 plugins {
-    `maven-publish`
     alias(libs.plugins.kotlin.kapt)
     id("spockk.artifact-under-test-producer")
     id("spockk.kotlin-library")
+    id("spockk.maven-central-publish")
 }
 
 dependencies {
@@ -12,12 +12,9 @@ dependencies {
     implementation(libs.junit.platform.engine)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "spockk-core"
-            from(components["kotlin"])
-            description = "Kotlin-native testing and specification framework with expressive BDD-style syntax"
-        }
+mavenPublishing {
+    pom {
+        name = "Spockk Framework Core Module"
+        description = "Kotlin-native testing and specification framework with expressive BDD-style syntax."
     }
 }
