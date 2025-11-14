@@ -1,2 +1,4 @@
-- [NEW] Detect Spockk syntax in test sources
-- [NEW] Execute Spockk tests with Gradle from IDE
+<ul>
+    <li>[NEW] Detect Spockk syntax in test sources</li>
+    <li>[NEW] Execute Spockk tests with Gradle from IDE</li>
+</ul>
