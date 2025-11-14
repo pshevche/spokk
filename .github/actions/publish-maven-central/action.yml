@@ -11,15 +11,6 @@ inputs:
   mavenCentralPassword:
     required: true
     description: "Password specified in the User Token"
-  signingInMemoryKeyId:
-    required: true
-    description: "ID of the signing key"
-  signingInMemoryKey:
-    required: true
-    description: "In memory signing key"
-  signingInMemoryKeyPassphrase:
-    required: true
-    description: "Passphrase for the in memory signing key"
 
 runs:
   using: "composite"
@@ -31,6 +22,3 @@ runs:
       env:
         ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ inputs.mavenCentralUsername }}
         ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ inputs.mavenCentralPassword }}
-        ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ inputs.signingInMemoryKeyId }}
-        ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ inputs.signingInMemoryKey }}
-        ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ inputs.signingInMemoryKeyPassphrase }}
