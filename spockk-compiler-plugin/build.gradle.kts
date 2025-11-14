@@ -1,8 +1,8 @@
 plugins {
-    `maven-publish`
     alias(libs.plugins.kotlin.kapt)
     id("spockk.artifact-under-test-producer")
     id("spockk.compiler-plugin-producer")
+    id("spockk.maven-central-publish")
 }
 
 dependencies {
@@ -12,12 +12,9 @@ dependencies {
     compileOnly(libs.kotlin.compiler.embeddable)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "spockk-compiler-plugin"
-            from(components["kotlin"])
-            description = "Kotlin compiler plugin that transforms Spockk’s concise specification syntax into runnable tests"
-        }
+mavenPublishing {
+    pom {
+        name = "Spockk Kotlin Compiler Plugin"
+        description = "Kotlin compiler plugin that transforms Spockk’s concise specification syntax into runnable tests."
     }
 }
