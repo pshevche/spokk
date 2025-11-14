@@ -5,11 +5,15 @@ on:
     inputs:
       component:
         description: 'Component to release'
-        default: 'All'
+        default: 'all'
         type: choice
         options:
-          - All
-          - Docs
+          - all
+          - spockk-docs
+          - spockk-core
+          - spockk-compiler-plugin
+          - spockk-gradle-plugin
+          - spockk-intellij-plugin
 
 jobs:
   publish:
@@ -17,16 +21,50 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    env:
+      ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.PGP_SIGNING_KEY_ID }}
+      ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.PGP_SIGNING_KEY }}
+      ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.PGP_SIGNING_KEY_PASSPHRASE }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
+
       - name: Build artifacts
-        # TODO: build all artifacts once
-        run: ./gradlew :spockk-docs:build
+        run: ./gradlew build
+
+      - name: Publish core module
+        if: ${{ github.event.inputs.component == 'spockk-core' || github.event.inputs.component == 'all' }}
+        run: ./gradlew :spockk-core:publishToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ inputs.mavenCentralUsername }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ inputs.mavenCentralPassword }}
+
+      - name: Publish Kotlin compiler plugin module
+        if: ${{ github.event.inputs.component == 'spockk-compiler-plugin' || github.event.inputs.component == 'all' }}
+        run: ./gradlew :spockk-compiler-plugin:publishToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ inputs.mavenCentralUsername }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ inputs.mavenCentralPassword }}
+
+      - name: Publish Gradle plugin
+        if: ${{ github.event.inputs.component == 'spockk-gradle-plugin' || github.event.inputs.component == 'all' }}
+        run: ./gradlew :spockk-gradle-plugin:publishPlugins
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PLUGIN_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PLUGIN_PUBLISH_SECRET }}
+
+      - name: Publish IntelliJ plugin
+        # TODO enable automatic publication after the first release
+        if: ${{ github.event.inputs.component == 'spockk-intellij-plugin' }}
+        run: ./gradlew :spockk-intellij-plugin:publishPlugin
+        env:
+          ORG_GRADLE_PROJECT_jetbrainsMarketplaceToken: ${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+
       - name: Publish documentation
-        if: ${{ github.event.inputs.component == 'Docs' || github.event.inputs.component == 'All' }}
+        if: ${{ github.event.inputs.component == 'spockk-docs' || github.event.inputs.component == 'all' }}
         uses: ./.github/actions/publish-docs
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
