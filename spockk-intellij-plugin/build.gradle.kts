@@ -40,4 +40,7 @@ intellijPlatform {
 
         changeNotes = releaseNotesFile.asFile.readText()
     }
+    publishing {
+        token = System.getenv("ORG_GRADLE_PROJECT_jetbrainsMarketplaceToken")
+    }
 }

@@ -4,6 +4,7 @@ plugins {
 
 val isCI = System.getenv("CI") != null
 mavenPublishing {
+    // TODO: enable automatic publication once the release is confirmed
     publishToMavenCentral()
 
     if (isCI) {
