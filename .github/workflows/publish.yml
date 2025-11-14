@@ -5,11 +5,15 @@ on:
     inputs:
       component:
         description: 'Component to release'
-        default: 'All'
+        default: 'all'
         type: choice
         options:
-          - All
-          - Docs
+          - all
+          - spockk-docs
+          - spockk-core
+          - spockk-compiler-plugin
+          - spockk-gradle-plugin
+          - spockk-intellij-plugin
 
 jobs:
   publish:
@@ -23,10 +27,19 @@ jobs:
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
       - name: Build artifacts
-        # TODO: build all artifacts once
-        run: ./gradlew :spockk-docs:build
+        run: ./gradlew build
+      - name: Publish core module
+        if: ${{ github.event.inputs.component == 'spockk-core' || github.event.inputs.component == 'all' }}
+        uses: ./.github/actions/publish-maven-central
+        with:
+          module: "spockk-core"
+          mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          signingInMemoryKeyId: ${{ secrets.PGP_SIGNING_KEY_ID }}
+          signingInMemoryKey: ${{ secrets.PGP_SIGNING_KEY }}
+          signingInMemoryKeyPassphrase: ${{ secrets.PGP_SIGNING_KEY_PASSPHRASE }}
       - name: Publish documentation
-        if: ${{ github.event.inputs.component == 'Docs' || github.event.inputs.component == 'All' }}
+        if: ${{ github.event.inputs.component == 'spockk-docs' || github.event.inputs.component == 'all' }}
         uses: ./.github/actions/publish-docs
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
