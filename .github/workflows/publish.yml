@@ -39,15 +39,15 @@ jobs:
         if: ${{ github.event.inputs.component == 'spockk-core' || github.event.inputs.component == 'all' }}
         run: ./gradlew :spockk-core:publishToMavenCentral
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ inputs.mavenCentralUsername }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ inputs.mavenCentralPassword }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       - name: Publish Kotlin compiler plugin module
         if: ${{ github.event.inputs.component == 'spockk-compiler-plugin' || github.event.inputs.component == 'all' }}
         run: ./gradlew :spockk-compiler-plugin:publishToMavenCentral
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ inputs.mavenCentralUsername }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ inputs.mavenCentralPassword }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       - name: Publish Gradle plugin
         if: ${{ github.event.inputs.component == 'spockk-gradle-plugin' || github.event.inputs.component == 'all' }}
