@@ -24,4 +24,11 @@ gradlePlugin {
 }
 
 val isCI = System.getenv("CI") != null
-signing.isRequired = isCI
+signing {
+    isRequired = isCI
+    useInMemoryPgpKeys(
+        System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKeyId"),
+        System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKey"),
+        System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")
+    )
+}
