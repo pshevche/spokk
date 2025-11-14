@@ -2,9 +2,7 @@ plugins {
     id("com.github.gmazzo.buildconfig")
 }
 
-group = "io.github.pshevche.spockk"
 val compilerPluginArtifactId = "spockk-compiler-plugin"
-version = "0.1"
 
 buildConfig {
     packageName("io.github.pshevche.spockk.compilation")
