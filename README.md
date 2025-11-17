@@ -40,32 +40,26 @@ The Spock framework for Groovy relies on AST transformations to transform its ex
 The Spockk framework achieves a similar behavior by implementing a Kotlin compiler plugin ([examples](https://kotlinlang.org/docs/all-open-plugin.html#0)).
 The following diagram shows the simplified interaction between all the different components that Spockk is composed of.
 
-```plantuml
-@startuml
+```mermaid
+graph TB
+    gradle["spockk-gradle-plugin"]
+    intellij["spockk-intellij-plugin"]
 
-!theme plain
+    subgraph compiler["Kotlin Compiler"]
+        sources["Sources (.kt)"]
+        frontend["Compiler frontend"]
+        backend["JVM IR backend"]
+        plugin["spockk-compiler-plugin"]
+        bytecode["Bytecode"]
 
-rectangle "spockk-gradle-plugin" as gradle
-rectangle "spockk-intellij-plugin" as intellij
+        sources --> frontend
+        frontend -->|generate intermediate representation| backend
+        backend --> plugin
+        plugin -->|transform IR into executable tests| bytecode
+    end
 
-rectangle "Kotlin Compiler" as compiler {
-  [Sources (.kt)]
-  [Compiler frontend]
-  [JVM IR backend]
-  [spockk-compiler-plugin]
-  [Bytecode]
-
-  [Sources (.kt)] --> [Compiler frontend]
-  [Compiler frontend] --> [JVM IR backend] : generate intermediate representation
-  [JVM IR backend] --> [spockk-compiler-plugin]
-  [spockk-compiler-plugin] --> [Bytecode] : transform IR into executable tests
-}
-
-gradle --> compiler : applies spockk-compiler-plugin
-intellij --> [Sources (.kt)] : detects specifications and features
-
-
-@enduml
+    gradle -->|applies spockk-compiler-plugin| compiler
+    intellij -->|detects specifications and features| sources
 ```
 
 ### Modules
