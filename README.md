@@ -1,4 +1,10 @@
-<img src="spockk-docs/docs/images/name_with_icon_light.svg" width="50%" alt="Spockk">
+<h1>
+  <picture width="200">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pshevche/spockk/refs/heads/main/spockk-docs/docs/images/name_with_icon_dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/pshevche/spockk/refs/heads/main/spockk-docs/docs/images/name_with_icon_light.svg">
+    <img alt="Spockk" src="https://raw.githubusercontent.com/pshevche/spockk/refs/heads/main/spockk-docs/docs/images/name_with_icon_light.svg" width="200">
+  </picture>
+</h1>
 
 This repository is home to Spockk, a testing framework that brings [Spock](https://github.com/spockframework/spock)'s expressive BDD-style syntax for Groovy to Kotlin.
 
