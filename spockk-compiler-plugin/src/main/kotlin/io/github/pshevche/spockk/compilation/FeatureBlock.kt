@@ -22,8 +22,6 @@ internal enum class FeatureBlock(val displayName: String, val fqn: String) {
     AND("and", "io.github.pshevche.spockk.lang.and");
 
     companion object {
-        val SPOCKK_BLOCKS_FQN = entries.map { it.fqn }.toSet()
-
         fun from(fqn: String) = entries.find { fqn == it.fqn }
     }
 
