@@ -19,10 +19,12 @@ package io.github.pshevche.spockk.compilation
 import org.jetbrains.kotlin.backend.common.CompilationException
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.Modality
+import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
+import org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
@@ -40,11 +42,19 @@ internal fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
 
 internal fun IrClass.isOpenOrAbstract() = this.modality == Modality.OPEN || this.modality == Modality.ABSTRACT
 
-internal fun IrGetObjectValue.asIrSpockkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+internal fun IrStatement.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
+    when (this) {
+        is IrTypeOperatorCall -> (this.argument as? IrGetObjectValue)?.asIrSpockkBlock(file)
+        is IrCall -> asIrSpockkBlock(file)
+        else -> null
+    }
+
+internal fun IrGetObjectValue.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
+    FeatureBlockIrElement.from(file, this)
 
 internal fun IrGetObjectValue.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 
-internal fun IrCall.asIrSpockkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+internal fun IrCall.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
 
 internal fun IrCall.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 

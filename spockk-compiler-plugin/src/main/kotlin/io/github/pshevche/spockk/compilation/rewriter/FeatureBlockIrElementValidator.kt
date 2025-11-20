@@ -12,12 +12,13 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.rewriter
 
-import io.github.pshevche.spockk.compilation.FeatureBlockIrElementValidator.State.INIT
+import io.github.pshevche.spockk.compilation.FeatureBlock
+import io.github.pshevche.spockk.compilation.FeatureBlockIrElement
 import org.jetbrains.kotlin.backend.common.CompilationException
 
-internal class FeatureBlockIrElementValidator() {
+internal class FeatureBlockIrElementValidator {
 
     enum class State {
         INIT {
@@ -99,7 +100,7 @@ internal class FeatureBlockIrElementValidator() {
         fun isExpectation() = this == EXPECTATION_EXPECT || this == EXPECTATION_THEN
     }
 
-    private var currentState: State = INIT
+    private var currentState: State = State.INIT
     private var lastBlock: FeatureBlockIrElement? = null
 
     fun validate(block: FeatureBlockIrElement) {
@@ -108,7 +109,7 @@ internal class FeatureBlockIrElementValidator() {
     }
 
     fun assertBlockStructureIsComplete() {
-        if (currentState != INIT && !currentState.isExpectation()) {
+        if (currentState != State.INIT && !currentState.isExpectation()) {
             val displayNames = currentState.validBlocks.map { "'${it.displayName}'" }
             throw CompilationException(
                 "Expected to find one of spockk blocks ${displayNames}, but reached the end of the feature method",

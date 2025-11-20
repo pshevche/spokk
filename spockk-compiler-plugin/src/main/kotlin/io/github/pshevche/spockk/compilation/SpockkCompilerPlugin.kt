@@ -39,7 +39,12 @@ class SpockkCompilerPlugin : CompilerPluginRegistrar() {
             moduleFragment: IrModuleFragment,
             pluginContext: IrPluginContext,
         ) {
-            moduleFragment.transform(SpockkIrTransformer(pluginContext), null)
+            // transformation happens in two phases to:
+            // 1. decouple the actual transformation from collecting the data about specs and features
+            // 2. ensure that we know about features in the parent specs before transforming children
+            val context = MutableSpockkTransformationContext()
+            moduleFragment.transform(SpockkTransformationContextCollector(context), null)
+            moduleFragment.transform(SpockkIrTransformer(SpockkIrFactory(pluginContext), context.finalized()), null)
         }
     }
 }

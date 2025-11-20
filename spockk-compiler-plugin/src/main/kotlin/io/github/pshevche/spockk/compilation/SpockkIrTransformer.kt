@@ -14,121 +14,35 @@
 
 package io.github.pshevche.spockk.compilation
 
-import org.jetbrains.kotlin.backend.common.CompilationException
-import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import io.github.pshevche.spockk.compilation.rewriter.FeatureRewriter
+import io.github.pshevche.spockk.compilation.rewriter.SpecRewriter
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.expressions.IrCall
-import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
-import org.jetbrains.kotlin.ir.interpreter.getLastOverridden
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
-import org.jetbrains.kotlin.ir.util.file
-import org.jetbrains.kotlin.ir.util.functions
-import org.jetbrains.kotlin.ir.util.parentAsClass
-import org.jetbrains.kotlin.ir.util.superClass
 
 @OptIn(UnsafeDuringIrConstructionAPI::class)
-internal class SpockkIrTransformer(pluginContext: IrPluginContext) : IrElementTransformerVoidWithContext() {
+internal class SpockkIrTransformer(
+    irFactory: SpockkIrFactory,
+    private val context: SpockkTransformationContext,
+) : BaseSpockkIrElementTransformer() {
 
-    private val context = SpockkIrTransformerContext()
-    private val irFactory = SpockkIrFactory(pluginContext)
-
-    override fun visitFileNew(declaration: IrFile): IrFile {
-        context.currentFile = declaration
-        val file = super.visitFileNew(declaration)
-        context.currentFile = null
-        return file
-    }
+    private val specRewriter = SpecRewriter(irFactory)
+    private val featureRewriter = FeatureRewriter(irFactory)
 
     override fun visitClassNew(declaration: IrClass): IrStatement {
-        // visit parent classes to determine whether there are any inherited features
-        declaration.superClass?.let { super.visitClassNew(it) }
-
-        // replay transformations of inherited features
-        if (context.isSpec(declaration.superClass)) {
-            specFound(declaration)
-            declaration.functions
-                .filter { context.isInheritedFeature(it) }
-                .forEach { featureFound(it, context.featureOrdinal(it.getLastOverridden())) }
+        return declaration.transformPostfix {
+            context.specContext(this)?.let {
+                specRewriter.rewrite(this, it)
+            }
         }
-
-        // transform current class
-        return super.visitClassNew(declaration)
     }
 
     override fun visitFunctionNew(declaration: IrFunction): IrStatement {
-        context.initializeBlockValidator(declaration)
-        val statement = super.visitFunctionNew(declaration)
-        context.discardBlockValidator(declaration)?.assertBlockStructureIsComplete()
-        return statement
-    }
-
-    override fun visitGetObjectValue(expression: IrGetObjectValue): IrExpression {
-        expression.asIrSpockkBlock(context.currentFile)?.let {
-            val feature = currentFunction(expression)
-            context.blockValidator(feature).validate(it)
-            featureFound(feature)
-        }
-
-        return super.visitGetObjectValue(expression)
-    }
-
-    override fun visitCall(expression: IrCall): IrExpression {
-        expression.asIrSpockkBlock(context.currentFile)?.let {
-            val feature = currentFunction(expression)
-            context.blockValidator(feature).validate(it)
-            featureFound(feature)
-        }
-
-        return super.visitCall(expression)
-    }
-
-    private fun specFound(clazz: IrClass) {
-        if (context.addSpec(clazz) && !clazz.isOpenOrAbstract()) {
-            clazz.annotations += irFactory.specMetadataAnnotation()
+        return declaration.transformPostfix {
+            context.featureContext(currentIrClass, this)?.let {
+                featureRewriter.rewrite(this, currentFile, it)
+            }
         }
     }
-
-    private fun featureFound(feature: IrFunction, ordinalOverride: Int? = null) {
-        specFound(feature.parentAsClass)
-        if (context.addFeature(feature, ordinalOverride)) {
-            feature.annotations += irFactory.featureMetadataAnnotation(
-                feature.startOffset,
-                context.featureOrdinal(feature)
-            )
-        }
-    }
-
-    private fun currentFunction(expression: IrGetObjectValue): IrFunction {
-        val irFunction = currentFunction?.irElement as IrFunction?
-
-        if (irFunction == null) {
-            throw CompilationException(
-                "Spockk label ${expression.symbol.owner.name.asString()} was used outside of a feature method",
-                expression.symbol.owner.file,
-                expression
-            )
-        }
-
-        return irFunction
-    }
-
-    private fun currentFunction(expression: IrCall): IrFunction {
-        val irFunction = currentFunction?.irElement as IrFunction?
-
-        if (irFunction == null) {
-            throw CompilationException(
-                "Spockk label ${expression.symbol.owner.name.asString()} was used outside of a feature method",
-                expression.symbol.owner.file,
-                expression
-            )
-        }
-
-        return irFunction
-    }
-
 }
