@@ -23,6 +23,6 @@ junit4 = { module = "junit:junit", version = "4.13.2" }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junit-platform" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
 junit-platform-testkit = { module = "org.junit.platform:junit-platform-testkit", version.ref = "junit-platform" }
-kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version = "0.11.0" }
+kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version = "0.11.1" }
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 mockk = { module = "io.mockk:mockk", version = "1.14.6" }
