@@ -41,7 +41,7 @@ internal class SpockkIrTransformer(
     override fun visitFunctionNew(declaration: IrFunction): IrStatement {
         return declaration.transformPostfix {
             context.featureContext(currentIrClass, this)?.let {
-                featureRewriter.rewrite(this, currentFile, it)
+                featureRewriter.rewrite(this, it)
             }
         }
     }

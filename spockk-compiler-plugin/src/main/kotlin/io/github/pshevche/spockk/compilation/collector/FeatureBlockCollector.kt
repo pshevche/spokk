@@ -12,18 +12,15 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation.common
+package io.github.pshevche.spockk.compilation.collector
 
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrFunction
+import io.github.pshevche.spockk.compilation.common.FeatureBlockStatements
+import org.jetbrains.kotlin.ir.IrStatement
 
-internal data class SpockkTransformationContext(
-    private val specs: Map<IrClass, SpecContext>,
-) {
+internal interface FeatureBlockCollector {
 
-    fun specContext(clazz: IrClass) = specs[clazz]
-    fun featureContext(clazz: IrClass, feature: IrFunction) = specs[clazz]?.features[feature]
+    fun consume(statement: IrStatement)
 
-    internal data class SpecContext(val features: Map<IrFunction, FeatureContext>)
-    internal data class FeatureContext(val ordinal: Int, val blocks: List<FeatureBlockStatements>)
+    fun getBlockStatements(): List<FeatureBlockStatements>
+
 }

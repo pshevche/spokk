@@ -15,29 +15,22 @@
 package io.github.pshevche.spockk.compilation.transformer
 
 import io.github.pshevche.spockk.compilation.common.SpockkTransformationContext.FeatureContext
-import io.github.pshevche.spockk.compilation.common.asIrSpockkBlock
-import org.jetbrains.kotlin.ir.declarations.IrFile
+import io.github.pshevche.spockk.compilation.common.mutableStatements
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.util.statements
 
 internal class FeatureRewriter(private val irFactory: SpockkIrFactory) {
 
-    fun rewrite(feature: IrFunction, file: IrFile, context: FeatureContext) {
-        validateBlocks(feature, file)
+    fun rewrite(feature: IrFunction, context: FeatureContext) {
+        rewriteFeatureStatements(feature, context)
         annotateFeature(feature, context)
     }
 
-    private fun validateBlocks(
+    private fun rewriteFeatureStatements(
         feature: IrFunction,
-        file: IrFile,
+        context: FeatureContext,
     ) {
-        val blockValidator = FeatureBlockIrElementValidator()
-        feature.body?.statements?.forEach { stat ->
-            stat.asIrSpockkBlock(file)?.let {
-                blockValidator.validate(it)
-            }
-        }
-        blockValidator.assertBlockStructureIsComplete()
+        feature.mutableStatements()?.clear()
+        feature.mutableStatements()?.addAll(context.blocks.flatMap { it.statements })
     }
 
     private fun annotateFeature(feature: IrFunction, context: FeatureContext) {

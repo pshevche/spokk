@@ -22,6 +22,8 @@ import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall
@@ -42,19 +44,22 @@ internal fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
 
 internal fun IrClass.isOpenOrAbstract() = this.modality == Modality.OPEN || this.modality == Modality.ABSTRACT
 
-internal fun IrStatement.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
+internal fun IrFunction.mutableStatements(): MutableList<IrStatement>? = (body as? IrBlockBody)?.statements
+
+internal fun IrStatement.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
     when (this) {
-        is IrTypeOperatorCall -> (this.argument as? IrGetObjectValue)?.asIrSpockkBlock(file)
-        is IrCall -> asIrSpockkBlock(file)
+        is IrTypeOperatorCall -> (this.argument as? IrGetObjectValue)?.asIrBlockLabel(file)
+        is IrCall -> asIrBlockLabel(file)
         else -> null
     }
 
-internal fun IrGetObjectValue.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
-    FeatureBlockIrElement.Companion.from(file, this)
+internal fun IrGetObjectValue.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
+    FeatureBlockLabelIrElement.Companion.from(file, this)
 
 internal fun IrGetObjectValue.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 
-internal fun IrCall.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? = FeatureBlockIrElement.Companion.from(file, this)
+internal fun IrCall.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
+    FeatureBlockLabelIrElement.Companion.from(file, this)
 
 internal fun IrCall.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 

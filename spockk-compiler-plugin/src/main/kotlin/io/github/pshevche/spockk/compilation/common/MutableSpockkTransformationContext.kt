@@ -29,8 +29,8 @@ internal class MutableSpockkTransformationContext {
 
     private val specs: MutableMap<IrClass, MutableSpecContext> = mutableMapOf()
 
-    fun addFeature(clazz: IrClass, feature: IrFunction) =
-        specs.computeIfAbsent(clazz) { MutableSpecContext() }.addFeature(feature)
+    fun addFeature(clazz: IrClass, feature: IrFunction, blocks: List<FeatureBlockStatements>) =
+        specs.computeIfAbsent(clazz) { MutableSpecContext() }.addFeature(feature, blocks)
 
     fun addPotentialFeature(clazz: IrClass, function: IrFunction) =
         specs.computeIfAbsent(clazz) { MutableSpecContext() }.addPotentialFeature(function)
@@ -57,8 +57,7 @@ internal class MutableSpockkTransformationContext {
 
         val featureOrdinalOffset = inheritedFeatures.size
         ctx.features.forEach {
-            features[it.key] =
-                SpockkTransformationContext.FeatureContext(it.value.ordinal + featureOrdinalOffset)
+            features[it.key] = it.value.copy(ordinal = it.value.ordinal + featureOrdinalOffset)
         }
         return features
     }
@@ -79,32 +78,37 @@ internal class MutableSpockkTransformationContext {
         ctx: MutableSpecContext,
         inheritanceDepth: Map<IrClassSymbol, Int>,
     ): Map<IrFunction, SpockkTransformationContext.FeatureContext> = ctx.potentialFeatures
-        .filter { isInheritedFeature(it) }
-        .sortedBy { inheritanceDepth[it.getLastOverridden().parentAsClass.symbol] }
+        .mapNotNull { func -> inheritedContext(func)?.let { func to it } }
+        .sortedBy { inheritanceDepth[it.first.getLastOverridden().parentAsClass.symbol] }
         .mapToIndex()
-        .mapValues { SpockkTransformationContext.FeatureContext(it.value) }
+        .map { it.key.first to it.key.second.copy(ordinal = it.value) }
+        .toMap()
 
-    private fun isInheritedFeature(function: IrFunction): Boolean {
+    private fun inheritedContext(function: IrFunction): SpockkTransformationContext.FeatureContext? {
         val overriddenFunc = function.getLastOverridden()
         return overriddenFunc.parentClassOrNull?.let {
-            specs[it]?.features[overriddenFunc] != null
-        } ?: false
+            specs[it]?.features[overriddenFunc]
+        }
     }
 
     internal class MutableSpecContext() {
         var featureOrdinal: Int = 0
-        var features: MutableMap<IrFunction, MutableFeatureContext> = mutableMapOf()
+        var features: MutableMap<IrFunction, SpockkTransformationContext.FeatureContext> = mutableMapOf()
         var potentialFeatures: MutableSet<IrFunction> = mutableSetOf()
 
-        fun addFeature(feature: IrFunction) {
-            features.putIfAbsent(feature, MutableFeatureContext(featureOrdinal))
-            featureOrdinal += 1
+        fun addFeature(feature: IrFunction, blocks: List<FeatureBlockStatements>) {
+            features.computeIfAbsent(feature) {
+                SpockkTransformationContext.FeatureContext(
+                    featureOrdinal,
+                    blocks
+                ).also {
+                    featureOrdinal += 1
+                }
+            }
         }
 
         fun addPotentialFeature(function: IrFunction) {
             potentialFeatures.add(function)
         }
     }
-
-    internal class MutableFeatureContext(var ordinal: Int)
 }

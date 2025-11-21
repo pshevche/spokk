@@ -14,7 +14,7 @@
 
 package io.github.pshevche.spockk.compilation.common
 
-internal enum class FeatureBlock(val displayName: String, val fqn: String) {
+internal enum class FeatureBlockLabel(val displayName: String, val fqn: String) {
     GIVEN("given", "io.github.pshevche.spockk.lang.given"),
     WHEN("when", "io.github.pshevche.spockk.lang.when"),
     THEN("then", "io.github.pshevche.spockk.lang.then"),
