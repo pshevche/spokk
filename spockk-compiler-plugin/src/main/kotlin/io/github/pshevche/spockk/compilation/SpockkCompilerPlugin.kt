@@ -15,6 +15,10 @@
 package io.github.pshevche.spockk.compilation
 
 import com.google.auto.service.AutoService
+import io.github.pshevche.spockk.compilation.collector.SpockkTransformationContextCollector
+import io.github.pshevche.spockk.compilation.common.MutableSpockkTransformationContext
+import io.github.pshevche.spockk.compilation.transformer.SpockkIrFactory
+import io.github.pshevche.spockk.compilation.transformer.SpockkIrTransformer
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar

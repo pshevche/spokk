@@ -12,8 +12,9 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.transformer
 
+import io.github.pshevche.spockk.compilation.common.referenceClass
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl

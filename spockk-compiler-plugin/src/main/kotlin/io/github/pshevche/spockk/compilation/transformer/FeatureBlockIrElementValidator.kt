@@ -12,10 +12,10 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation.rewriter
+package io.github.pshevche.spockk.compilation.transformer
 
-import io.github.pshevche.spockk.compilation.FeatureBlock
-import io.github.pshevche.spockk.compilation.FeatureBlockIrElement
+import io.github.pshevche.spockk.compilation.common.FeatureBlock
+import io.github.pshevche.spockk.compilation.common.FeatureBlockIrElement
 import org.jetbrains.kotlin.backend.common.CompilationException
 
 internal class FeatureBlockIrElementValidator {

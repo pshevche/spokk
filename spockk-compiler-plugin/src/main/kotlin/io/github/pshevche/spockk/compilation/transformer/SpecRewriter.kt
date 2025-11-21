@@ -12,11 +12,10 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation.rewriter
+package io.github.pshevche.spockk.compilation.transformer
 
-import io.github.pshevche.spockk.compilation.SpockkIrFactory
-import io.github.pshevche.spockk.compilation.SpockkTransformationContext.SpecContext
-import io.github.pshevche.spockk.compilation.isOpenOrAbstract
+import io.github.pshevche.spockk.compilation.common.SpockkTransformationContext.SpecContext
+import io.github.pshevche.spockk.compilation.common.isOpenOrAbstract
 import org.jetbrains.kotlin.ir.declarations.IrClass
 
 internal class SpecRewriter(private val irFactory: SpockkIrFactory) {

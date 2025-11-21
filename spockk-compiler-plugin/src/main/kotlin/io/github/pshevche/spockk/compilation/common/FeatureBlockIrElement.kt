@@ -14,13 +14,8 @@
 
 @file:OptIn(UnsafeDuringIrConstructionAPI::class)
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.common
 
-import io.github.pshevche.spockk.compilation.FeatureBlock.AND
-import io.github.pshevche.spockk.compilation.FeatureBlock.EXPECT
-import io.github.pshevche.spockk.compilation.FeatureBlock.GIVEN
-import io.github.pshevche.spockk.compilation.FeatureBlock.THEN
-import io.github.pshevche.spockk.compilation.FeatureBlock.WHEN
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
@@ -40,29 +35,29 @@ internal sealed class FeatureBlockIrElement(
 
         private fun fromElement(file: IrFile, element: IrElement, fqn: String): FeatureBlockIrElement? {
             return when (FeatureBlock.from(fqn)) {
-                GIVEN -> Given(file, element)
-                WHEN -> When(file, element)
-                THEN -> Then(file, element)
-                EXPECT -> Expect(file, element)
-                AND -> And(file, element)
+                FeatureBlock.GIVEN -> Given(file, element)
+                FeatureBlock.WHEN -> When(file, element)
+                FeatureBlock.THEN -> Then(file, element)
+                FeatureBlock.EXPECT -> Expect(file, element)
+                FeatureBlock.AND -> And(file, element)
                 else -> null
             }
         }
     }
 
     data class Given(override val file: IrFile, override val element: IrElement) :
-        FeatureBlockIrElement(GIVEN, file, element)
+        FeatureBlockIrElement(FeatureBlock.GIVEN, file, element)
 
     data class When(override val file: IrFile, override val element: IrElement) :
-        FeatureBlockIrElement(WHEN, file, element)
+        FeatureBlockIrElement(FeatureBlock.WHEN, file, element)
 
     data class Then(override val file: IrFile, override val element: IrElement) :
-        FeatureBlockIrElement(THEN, file, element)
+        FeatureBlockIrElement(FeatureBlock.THEN, file, element)
 
     data class Expect(override val file: IrFile, override val element: IrElement) :
-        FeatureBlockIrElement(EXPECT, file, element)
+        FeatureBlockIrElement(FeatureBlock.EXPECT, file, element)
 
     data class And(override val file: IrFile, override val element: IrElement) :
-        FeatureBlockIrElement(AND, file, element)
+        FeatureBlockIrElement(FeatureBlock.AND, file, element)
 
 }

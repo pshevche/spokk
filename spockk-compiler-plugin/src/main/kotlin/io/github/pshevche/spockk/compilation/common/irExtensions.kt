@@ -14,7 +14,7 @@
 
 @file:OptIn(UnsafeDuringIrConstructionAPI::class)
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.common
 
 import org.jetbrains.kotlin.backend.common.CompilationException
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -50,11 +50,11 @@ internal fun IrStatement.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
     }
 
 internal fun IrGetObjectValue.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? =
-    FeatureBlockIrElement.from(file, this)
+    FeatureBlockIrElement.Companion.from(file, this)
 
 internal fun IrGetObjectValue.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 
-internal fun IrCall.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+internal fun IrCall.asIrSpockkBlock(file: IrFile): FeatureBlockIrElement? = FeatureBlockIrElement.Companion.from(file, this)
 
 internal fun IrCall.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 

@@ -12,18 +12,17 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.common
 
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrFunction
+internal enum class FeatureBlock(val displayName: String, val fqn: String) {
+    GIVEN("given", "io.github.pshevche.spockk.lang.given"),
+    WHEN("when", "io.github.pshevche.spockk.lang.when"),
+    THEN("then", "io.github.pshevche.spockk.lang.then"),
+    EXPECT("expect", "io.github.pshevche.spockk.lang.expect"),
+    AND("and", "io.github.pshevche.spockk.lang.and");
 
-internal data class SpockkTransformationContext(
-    private val specs: Map<IrClass, SpecContext>,
-) {
+    companion object {
+        fun from(fqn: String) = entries.find { fqn == it.fqn }
+    }
 
-    fun specContext(clazz: IrClass) = specs[clazz]
-    fun featureContext(clazz: IrClass, feature: IrFunction) = specs[clazz]?.features[feature]
-
-    internal data class SpecContext(val features: Map<IrFunction, FeatureContext>)
-    internal data class FeatureContext(val ordinal: Int)
 }

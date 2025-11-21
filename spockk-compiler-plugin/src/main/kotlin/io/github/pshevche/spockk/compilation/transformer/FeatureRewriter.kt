@@ -12,11 +12,10 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation.rewriter
+package io.github.pshevche.spockk.compilation.transformer
 
-import io.github.pshevche.spockk.compilation.SpockkIrFactory
-import io.github.pshevche.spockk.compilation.SpockkTransformationContext.FeatureContext
-import io.github.pshevche.spockk.compilation.asIrSpockkBlock
+import io.github.pshevche.spockk.compilation.common.SpockkTransformationContext.FeatureContext
+import io.github.pshevche.spockk.compilation.common.asIrSpockkBlock
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.util.statements
