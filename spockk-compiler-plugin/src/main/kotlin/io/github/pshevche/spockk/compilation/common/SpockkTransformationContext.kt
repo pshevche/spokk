@@ -12,9 +12,18 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.common
 
-internal object SpockkIrConstants {
-    const val SPEC_METADATA_FQN = "io.github.pshevche.spockk.lang.internal.SpecMetadata"
-    const val FEATURE_METADATA_FQN = "io.github.pshevche.spockk.lang.internal.FeatureMetadata"
+import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+
+internal data class SpockkTransformationContext(
+    private val specs: Map<IrClass, SpecContext>,
+) {
+
+    fun specContext(clazz: IrClass) = specs[clazz]
+    fun featureContext(clazz: IrClass, feature: IrFunction) = specs[clazz]?.features[feature]
+
+    internal data class SpecContext(val features: Map<IrFunction, FeatureContext>)
+    internal data class FeatureContext(val ordinal: Int, val blocks: List<FeatureBlockStatements>)
 }

@@ -14,15 +14,19 @@
 
 @file:OptIn(UnsafeDuringIrConstructionAPI::class)
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.common
 
 import org.jetbrains.kotlin.backend.common.CompilationException
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.Modality
+import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrGetObjectValue
+import org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
@@ -40,11 +44,22 @@ internal fun IrPluginContext.referenceClass(className: String): IrClassSymbol {
 
 internal fun IrClass.isOpenOrAbstract() = this.modality == Modality.OPEN || this.modality == Modality.ABSTRACT
 
-internal fun IrGetObjectValue.asIrSpockkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+internal fun IrFunction.mutableStatements(): MutableList<IrStatement>? = (body as? IrBlockBody)?.statements
+
+internal fun IrStatement.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
+    when (this) {
+        is IrTypeOperatorCall -> (this.argument as? IrGetObjectValue)?.asIrBlockLabel(file)
+        is IrCall -> asIrBlockLabel(file)
+        else -> null
+    }
+
+internal fun IrGetObjectValue.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
+    FeatureBlockLabelIrElement.Companion.from(file, this)
 
 internal fun IrGetObjectValue.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 
-internal fun IrCall.asIrSpockkBlock(file: IrFile?): FeatureBlockIrElement? = FeatureBlockIrElement.from(file, this)
+internal fun IrCall.asIrBlockLabel(file: IrFile): FeatureBlockLabelIrElement? =
+    FeatureBlockLabelIrElement.Companion.from(file, this)
 
 internal fun IrCall.requiredFqn() = symbol.owner.fqNameWhenAvailable!!.asString()
 

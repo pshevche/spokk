@@ -12,10 +12,9 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.transformer
 
-import io.github.pshevche.spockk.compilation.SpockkIrConstants.FEATURE_METADATA_FQN
-import io.github.pshevche.spockk.compilation.SpockkIrConstants.SPEC_METADATA_FQN
+import io.github.pshevche.spockk.compilation.common.referenceClass
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
@@ -27,6 +26,11 @@ import org.jetbrains.kotlin.ir.util.constructors
 
 @OptIn(UnsafeDuringIrConstructionAPI::class)
 internal class SpockkIrFactory(private val pluginContext: IrPluginContext) {
+
+    companion object {
+        private const val SPEC_METADATA_FQN = "io.github.pshevche.spockk.lang.internal.SpecMetadata"
+        private const val FEATURE_METADATA_FQN = "io.github.pshevche.spockk.lang.internal.FeatureMetadata"
+    }
 
     fun specMetadataAnnotation() = createConstructorCall(pluginContext, SPEC_METADATA_FQN)
 

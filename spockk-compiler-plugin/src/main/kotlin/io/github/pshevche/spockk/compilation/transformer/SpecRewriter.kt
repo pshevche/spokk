@@ -12,19 +12,21 @@
  * limitations under the License.
  */
 
-package io.github.pshevche.spockk.compilation
+package io.github.pshevche.spockk.compilation.transformer
 
-internal enum class FeatureBlock(val displayName: String, val fqn: String) {
-    GIVEN("given", "io.github.pshevche.spockk.lang.given"),
-    WHEN("when", "io.github.pshevche.spockk.lang.when"),
-    THEN("then", "io.github.pshevche.spockk.lang.then"),
-    EXPECT("expect", "io.github.pshevche.spockk.lang.expect"),
-    AND("and", "io.github.pshevche.spockk.lang.and");
+import io.github.pshevche.spockk.compilation.common.SpockkTransformationContext.SpecContext
+import io.github.pshevche.spockk.compilation.common.isOpenOrAbstract
+import org.jetbrains.kotlin.ir.declarations.IrClass
 
-    companion object {
-        val SPOCKK_BLOCKS_FQN = entries.map { it.fqn }.toSet()
+internal class SpecRewriter(private val irFactory: SpockkIrFactory) {
 
-        fun from(fqn: String) = entries.find { fqn == it.fqn }
+    fun rewrite(spec: IrClass, context: SpecContext) {
+        annotateSpec(spec)
     }
 
+    private fun annotateSpec(spec: IrClass) {
+        if (!spec.isOpenOrAbstract()) {
+            spec.annotations += irFactory.specMetadataAnnotation()
+        }
+    }
 }

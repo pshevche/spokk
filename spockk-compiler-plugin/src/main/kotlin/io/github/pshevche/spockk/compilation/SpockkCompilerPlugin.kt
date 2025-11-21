@@ -15,6 +15,10 @@
 package io.github.pshevche.spockk.compilation
 
 import com.google.auto.service.AutoService
+import io.github.pshevche.spockk.compilation.collector.SpockkTransformationContextCollector
+import io.github.pshevche.spockk.compilation.common.MutableSpockkTransformationContext
+import io.github.pshevche.spockk.compilation.transformer.SpockkIrFactory
+import io.github.pshevche.spockk.compilation.transformer.SpockkIrTransformer
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
@@ -39,7 +43,12 @@ class SpockkCompilerPlugin : CompilerPluginRegistrar() {
             moduleFragment: IrModuleFragment,
             pluginContext: IrPluginContext,
         ) {
-            moduleFragment.transform(SpockkIrTransformer(pluginContext), null)
+            // transformation happens in two phases to:
+            // 1. decouple the actual transformation from collecting the data about specs and features
+            // 2. ensure that we know about features in the parent specs before transforming children
+            val context = MutableSpockkTransformationContext()
+            moduleFragment.transform(SpockkTransformationContextCollector(context), null)
+            moduleFragment.transform(SpockkIrTransformer(SpockkIrFactory(pluginContext), context.finalized()), null)
         }
     }
 }
