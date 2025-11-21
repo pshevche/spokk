@@ -16,22 +16,56 @@
 
 package io.github.pshevche.spockk.lang
 
-object given
+private fun throwIllegalLabelUsageException(label: String) {
+    throw UnsupportedOperationException("The 'given' label should not be used outside of Spockk feature methods")
+}
 
-fun given(description: String) {}
+object given {
+    init {
+        throwIllegalLabelUsageException("given")
+    }
+}
 
-object expect
+fun given(description: String) {
+    throwIllegalLabelUsageException("given")
+}
 
-fun expect(description: String) {}
+object expect {
+    init {
+        throwIllegalLabelUsageException("expect")
+    }
+}
 
-object `when`
+fun expect(description: String) {
+    throwIllegalLabelUsageException("expect")
+}
 
-fun `when`(description: String) {}
+object `when` {
+    init {
+        throwIllegalLabelUsageException("when")
+    }
+}
 
-object then
+fun `when`(description: String) {
+    throwIllegalLabelUsageException("when")
+}
 
-fun then(description: String) {}
+object then {
+    init {
+        throwIllegalLabelUsageException("then")
+    }
+}
 
-object and
+fun then(description: String) {
+    throwIllegalLabelUsageException("then")
+}
 
-fun and(description: String) {}
+object and {
+    init {
+        throwIllegalLabelUsageException("and")
+    }
+}
+
+fun and(description: String) {
+    throwIllegalLabelUsageException("and")
+}
