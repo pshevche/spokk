@@ -28,6 +28,7 @@ dependencies {
 
 val releaseNotesFile = layout.projectDirectory.dir("docs").file("release-notes.txt")
 intellijPlatform {
+    buildSearchableOptions = false
     pluginConfiguration {
         ideaVersion {
             sinceBuild = "251"
